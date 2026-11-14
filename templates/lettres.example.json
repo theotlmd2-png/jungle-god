@@ -1,0 +1,15 @@
+{
+ "acme-ai-builder": {
+  "entreprise": "Acme",
+  "poste": "AI Automation Builder",
+  "famille": "ia-automatisation",
+  "url": "https://www.welcometothejungle.com/fr/companies/acme/jobs/ai-automation-builder_paris",
+  "cv": "cv/cv-ia.pdf",
+  "statut": "lettre prête, non envoyée",
+  "reponses": {
+   "Prétentions salariales": "Entre 40 et 45 K€ brut annuel, dans la fourchette de l'annonce.",
+   "Date de disponibilité": "Immédiate."
+  },
+  "lettre": "Bonjour,\n\nPremier paragraphe : leur enjeu, tiré des missions de la fiche.\n\nUne preuve par attente de la fiche.\n\nCe que je viens apprendre chez vous, et l'envie pour finir.\n\nMes projets sont visibles ici : https://exemple.fr\n\nPrénom Nom"
+ }
+}
