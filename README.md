@@ -151,7 +151,8 @@ Change my rules: no more agency roles.
 ```text
 SKILL.md                 the brain: the pipeline Claude follows
 references/
-  onboarding.md          first-run interview, application kit, CV building
+  onboarding.md          first-run interview, application kit
+  cv.md                  CVs built during the conversation, one per target market
   setup.md               technical setup
   triage.md              hard criteria, shortlist format
   letters.md             writing method, form answers

@@ -5,6 +5,8 @@ Goal: fit the skill to THIS person without bending the pipeline. At the end, the
 and an **approved model letter**. Target: 15 to 25 minutes. Speak the user's language throughout.
 
 ## How to ask
+- **Be direct and fast.** Short spoken questions that each cover a theme ("Your studies? Your jobs? Your
+  passions?"), no preamble, no explaining why you ask. Onboarding should feel like 15 minutes, not an interview.
 - **Talk, in the chat, like a person.** Open questions first, one or two at a time, in the user's words
   ("Tell me what you're looking for, even if it's vague"). Follow up on what they say instead of
   marching through a list; one answer often covers several questions below.
@@ -25,13 +27,11 @@ and an **approved model letter**. Target: 15 to 25 minutes. Speak the user's lan
 6. What makes their profile unusual (career change, long experience, self-taught, return to work…)
    and what they absolutely do not want (→ `deal_breakers`).
 
-## Block B — Material
-- **Existing CV**: ask for the file path, read it, extract the facts into `profile.md`. Point out in three
-  bullets what hurts it (no numbers, no links, vague title, unexplained gaps) and offer to redo it.
-  Redo it only with their OK.
-- **No CV**: offer to build one (see "Building the CV" below).
-- Links: LinkedIn, portfolio, GitHub, App Store, website. Read them if accessible.
-- Several target jobs: offer one CV per family (same base, different title and proof order).
+## Block B — Material: CV first
+Early, right after the first answers: "Do you have a CV? Drop it here, even an old one."
+Follow `references/cv.md`: read and extract it if there is one; otherwise build it **during the
+conversation**, from every answer of blocks A to D. Ask for links (LinkedIn, portfolio, GitHub) too and
+read them. As markets become visible, note them: up to three CVs will be revealed at the end.
 
 ## Block C — Proofs
 For each experience or project, get at least ONE proof: a fact and a result.
@@ -83,18 +83,13 @@ filters from block A. For each family, find the WTTJ job pages that cover it:
 when a family is empty or flooded.
 
 ## End of onboarding
+- **The reveal** (`references/cv.md` §6): "With your profile, I built N CVs, here they are. Do we target
+  these markets?" Their answer sets the families in `criteria.toml`.
 - Replace `Onboarding: not done` with `Onboarding: done YYYY-MM-DD` at the top of `profile.md`. Next time,
   the skill goes straight to the sweep.
 - Five-line summary: jobs, area, rules changed from the defaults, CVs available, next action.
 - "Change my rules" or "redo my onboarding" reopens the relevant block at any time.
 
-## Building the CV
-Start from `templates/cv.html` (one A4 page, plain, ATS-readable):
-1. Collect: target title, 3 to 5 experiences or projects with one proof each, real skills and tools,
-   education, languages, links. Photo only if wanted (common in France, discouraged elsewhere).
-2. Write `cv/cv-<family>.html` by replacing the template blocks. Title = the target job, not "looking for a job".
-3. `python $SK/scripts/cv_pdf.py cv/cv-<family>.html`, then **look at it yourself before showing it**
-   (screenshot the HTML at 794×1123 with headless Chrome, or read the PDF): one page, no empty band,
-   nothing cut, columns aligned. Set `--accent` to a colour that suits the profile. Only then `open` it.
-4. Iterate on feedback, then copy the facts into `profile.md`.
-Rules: zero invention, action verbs, one number per line when one exists, no skill gauges.
+## Building the CVs
+See `references/cv.md`: precise questions over several turns, 1 to 3 target markets, web research of what
+works in each, one CV per market, render checked, then **the reveal at the end of onboarding**.

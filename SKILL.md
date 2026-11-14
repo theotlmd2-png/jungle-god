@@ -51,7 +51,8 @@ it to `rules.toml` or `profile.md › Learned preferences` and say so in one lin
 
 ## Step 0 — Onboarding (when `profile.md` is missing or says "Onboarding: not done")
 1. **A conversation, not a form.** Interview per `references/onboarding.md`, blocks A to G: situation,
-   CV (read, improved or built from `templates/cv.html`), proofs, **Application kit** (so third-party
+   CV first (imported, or built during the conversation, 1 to 3 CVs per target market after web research,
+   revealed at the end: `references/cv.md`), proofs, **Application kit** (so third-party
    forms can be filled without stopping), rules, **model letter approved on a real listing**, criteria.
 2. Technical setup (`references/setup.md`) happens **silently in the background**, only when first needed
    (just before the first sweep, in block F). Never open with it, never make the user wait on it.
