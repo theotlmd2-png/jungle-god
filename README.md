@@ -81,7 +81,7 @@ L'extension [Claude in Chrome](https://claude.com/chrome) est recommandée pour 
 sans elle, Claude te prépare les textes à coller.
 
 ```bash
-git clone https://github.com/<ton-compte>/wttj-job-hunter ~/.claude/skills/wttj-job-hunter
+git clone https://github.com/theotlmd2-png/wttj-job-hunter ~/.claude/skills/wttj-job-hunter
 ```
 
 Puis, dans Claude Code :
