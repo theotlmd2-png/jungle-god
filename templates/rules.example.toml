@@ -1,32 +1,35 @@
-# ADJUSTABLE rules: they fit the person. Claude fills them in during onboarding (references/onboarding.md)
-# and rereads them at the start of every batch. Every rule has a default; set `enabled = false` to turn a block off.
-# The CORE (pipeline order, zero invention, human GO, blacklist) is not in here: it cannot be turned off.
+# ADJUSTABLE rules. Nothing in here is a recommendation: every value is set with the user during
+# onboarding (references/onboarding.md, block E) and reread at the start of every batch.
+# Neutral defaults below mean "no filter". The CORE (pipeline order, zero invention, human GO,
+# blacklist) is not in here: it cannot be turned off.
 
 [triage]
-max_years_required = 2          # skip listings asking for more than this
-stretch_max_percent = 20        # max share of "one requirement above" listings in a batch
+max_years_required = 0          # skip listings asking for more years than this; 0 = no limit
+min_years_required = 0          # skip listings that are too junior for the profile; 0 = no limit
+stretch_max_percent = 20        # max share of "one requirement above the profile" listings in a batch
 max_listing_age_days = 14
-skip_if_degree_required = true  # skip when a degree the profile lacks is written as mandatory
-languages = ["French"]          # add "English" only if the level really allows it
-batch_size = 12                 # listings per shortlist
-quota = {}                      # e.g. { "sales" = 4 }: at most 4 listings of that family per batch
+skip_if_degree_required = false # true = skip when a degree the profile lacks is written as mandatory
+languages = []                  # languages the user can work in, with a real level, e.g. ["French", "English"]
+batch_size = 10                 # listings per shortlist
+quota = {}                      # e.g. { "family-name" = 4 }: at most 4 listings of that family per batch
+deal_breakers = []              # free text, e.g. ["agency roles", "100 % cold calling", "night shifts"]
 
 [channels]
 wttj = true
 career_sites = true             # company career pages and ATS (Greenhouse, Lever, Teamtailor, Ashby, Workable…)
-other_boards = []               # e.g. ["Indeed", "LinkedIn", "HelloWork", "APEC", "JobTeaser"]
+other_boards = []               # e.g. ["Indeed", "LinkedIn", "HelloWork", "APEC"]
 spontaneous = false             # spontaneous applications by email (drafted, never sent without a GO)
 
 [letter]
 enabled = true                  # false = CV only, no cover letter
 paragraphs = [3, 5]
-informal = false                # true = "tu" / first-name tone, for startups that write that way
-opening = "Bonjour,"
+tone = ""                       # set at onboarding, e.g. "formal", "warm", "informal (tu)"
+opening = ""                    # set at onboarding, in the letter's language
 language = "same as the listing"
 single_link = true              # one link (portfolio, GitHub…) per application, at the end of the letter
 link = ""
 gap_sentence = "one sentence"   # "none" | "one sentence" | "one paragraph"
-banned_phrases = ["passionné", "je coche toutes les cases", "n'hésitez pas"]
+banned_phrases = []             # filled from the user's feedback on the model letter
 never_mention = []              # projects or facts never to be cited
 
 [cv]
@@ -40,9 +43,9 @@ sensitive_questions = "prefer not to say"
 accounts = "ask"                # "ask" | "user_creates" | "claude_creates_with_user_email" (password typed by the user)
 
 [sending]
-mode = "claude_sends_after_go"  # "claude_sends_after_go" | "claude_fills_user_sends" | "texts_only"
+mode = "claude_fills_user_sends"  # "claude_sends_after_go" | "claude_fills_user_sends" | "texts_only"
 mandatory_consents = "ask"      # "ask" | "blanket_ok_given"
-reapply_same_company = "other_job_only"  # "never" | "other_job_only"
+reapply_same_company = "never"  # "never" | "other_job_only"
 
 [notify]
 desktop = true                  # macOS / Linux notification after each application (scripts/notify.py)

@@ -15,8 +15,10 @@ and an **approved model letter**. Target: 15 to 25 minutes. Speak the user's lan
 1. Target job(s)? Propose 3 to 5 close titles inferred from what they say.
 2. Where? City, radius, remote accepted or required.
 3. Contract: permanent, fixed-term, freelance, internship, apprenticeship? (adjust `algolia_filter`)
-4. Real experience in this job, in years, and honest English level.
+4. Real experience in this job, in years, and the languages they can work in, with an honest level.
 5. Pace: how many applications per week? (→ `batch_size`) How urgent?
+6. What makes their profile unusual (career change, long experience, self-taught, return to work…)
+   and what they absolutely do not want (→ `deal_breakers`).
 
 ## Block B — Material
 - **Existing CV**: ask for the file path, read it, extract the facts into `profile.md`. Point out in three
@@ -43,15 +45,16 @@ Go through the `Application kit` section of `profile.md` and fill it, grouping q
    diversity questions policy, references.
 5. Accounts: existing accounts on job sites, whether Claude may create new ones (`forms.accounts`),
    and the rule that the **user always types passwords**.
-6. Standard short answers in French and English: "Why you?", "Biggest achievement", "A weakness".
+6. Standard short answers, in each language they apply in: "Why you?", "Biggest achievement", "A weakness".
    "Why us?" is always written per company.
 
 ## Block E — Rules
-Show the defaults from `rules.example.toml` as a short table (rule, default, what it changes), then ask
-what to change. The questions that really vary between people:
-- How many years of required experience are you willing to target? (`max_years_required`)
+The template holds neutral values only. Fill each rule from the answers so far, show the result as a short
+table (rule, value, what it changes), then ask what to change. The questions that really vary between people:
+- What level of required experience fits you, from how many years to how many? (`min_years_required`, `max_years_required`)
+- Skip listings that require a degree you do not have, or try anyway? (`skip_if_degree_required`)
 - A letter for every listing, or CV only? (`letter.enabled`)
-- Formal or informal tone? (`informal`)
+- Tone and opening of the letters? (`tone`, `opening`)
 - Who clicks Submit: me after your GO, you after I fill, or texts only? (`sending.mode`)
 - Which channels besides WTTJ? (`channels`)
 - Desktop notification after each application? (`notify.desktop`)
@@ -67,7 +70,7 @@ Write `rules.toml` from the template with their choices.
 5. Every later letter starts from this base: same tone, same structure, content specific to each listing.
 
 ## Block G — Search criteria
-Write `criteria.toml`: one family per target job, 15 to 60 keywords (French and English titles, tools,
+Write `criteria.toml`: one family per target job, 15 to 60 keywords (titles in every language of the market, tools,
 jargon, synonyms), title include/exclude filters from block A. Run a control sweep and show the volume
 per family; adjust when a family is empty or flooded.
 

@@ -1,17 +1,17 @@
 {
- "acme/ai-automation-builder_paris": {
+ "acme/customer-success-manager_lyon": {
   "company": "Acme",
-  "title": "AI Automation Builder",
-  "family": "ai-automation",
-  "url": "https://www.welcometothejungle.com/fr/companies/acme/jobs/ai-automation-builder_paris",
+  "title": "Customer Success Manager",
+  "family": "customer-success",
+  "url": "https://www.welcometothejungle.com/fr/companies/acme/jobs/customer-success-manager_lyon",
   "route": "Greenhouse",
-  "cv": "cv/cv-ai.pdf",
+  "cv": "cv/cv-customer-success.pdf",
   "status": "letter ready",
   "answers": {
-   "Expected salary": "40-45k€ gross per year, within the range of the listing.",
-   "Earliest start date": "Immediately."
+   "Expected salary": "Taken from the Application kit in profile.md.",
+   "Earliest start date": "Taken from the Application kit in profile.md."
   },
-  "letter": "Bonjour,\n\nFirst paragraph: their stake, taken from the listing's missions.\n\nOne proof per expectation of the listing.\n\nWhat I come to learn with you, and the drive to end on.\n\nMes projets sont visibles ici : https://example.com\n\nFirst Last",
+  "letter": "<opening from rules.toml>\n\nFirst paragraph: their stake, taken from the listing's missions.\n\nOne proof per expectation of the listing.\n\nThe drive to end on.\n\n<link, if single_link>\n\n<First Last>",
   "log": []
  }
 }

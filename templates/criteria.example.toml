@@ -1,31 +1,28 @@
-# Sweep criteria. Claude writes the real criteria.toml with you during onboarding.
-# Keywords are not job titles: broad keywords are what surface listings you would never find by hand.
-# Precision comes from the triage step, not from the query.
+# EXAMPLE ONLY, to show the format. During onboarding Claude writes the real criteria.toml from the
+# user's answers: their cities, their contract type, their job families and keywords.
+# Keywords are not job titles: broad keywords (tools, jargon, synonyms, titles in several languages)
+# surface listings nobody would find by hand. Precision comes from the triage step, not from the query.
 
 [search]
-cities = [
-  "Paris", "Boulogne-Billancourt", "Levallois-Perret", "Neuilly-sur-Seine", "Puteaux", "Courbevoie",
-  "Issy-les-Moulineaux", "Montreuil", "Saint-Ouen", "Saint-Denis", "Clichy", "Nanterre", "La Défense",
-]
+cities = ["Lyon", "Villeurbanne"]
 accept_full_remote = true
 # Raw Algolia filter. Permanent contract: full_time. Fixed-term: temporary. Freelance: freelance.
-# Internship / apprenticeship: internship / apprenticeship.
+# Internship: internship. Apprenticeship: apprenticeship.
 algolia_filter = "offices.country_code:FR AND contract_type:full_time"
 
-# One family = one target job. 15 to 60 keywords each: French and English titles, tools, jargon.
+# One family = one target job, 15 to 60 keywords each.
 [[families]]
-name = "ai-automation"
+name = "customer-success"
 keywords = [
-  "IA", "IA générative", "AI builder", "product builder", "no-code", "low-code", "automatisation",
-  "n8n", "Make", "Zapier", "agents IA", "LLM", "Claude", "ChatGPT", "AI ops", "adoption IA",
-  "formateur IA", "consultant IA", "chef de projet IA", "solutions engineer", "forward deployed",
-  "RevOps", "business operations", "process automation", "Claude Code", "vibe coding",
+  "customer success", "account manager", "chargé de clientèle", "onboarding", "chargé de compte",
+  "relation client", "satisfaction client", "fidélisation", "support client", "CSM", "renouvellement",
+  "Zendesk", "Intercom", "HubSpot", "Salesforce",
 ]
-title_include = '\bIA\b|\bAI\b|automat|builder|agent|no.?code|low.?code|n8n|zapier|claude|gpt|llm|prompt|ops\b|revops|g[ée]n[ée]rative|intelligence artificielle'
-title_exclude = 'senior|sénior|staff|principal|head of|director|directeur|lead\b|\bVP\b|stage|alternance|intern|scientist|research|machine learning|data engineer|backend|frontend|full.?stack|devops'
+title_include = 'customer|client|account|onboarding|csm|compte|support|fid[ée]lisation'
+title_exclude = 'stage|alternance|intern'
 
 [[families]]
-name = "growth-marketing"
-keywords = ["growth", "growth marketing", "acquisition", "CRM", "lifecycle", "content", "social media", "UGC", "creative strategist"]
-title_include = 'growth|acquisition|crm|lifecycle|content|contenu|social|ugc|creative|marketing|communication'
-title_exclude = 'senior|sénior|head of|director|directeur|lead\b|\bVP\b|stage|alternance|intern|manager.*(équipe|team)'
+name = "data-analytics"
+keywords = ["data analyst", "analyste", "business intelligence", "BI", "Power BI", "Tableau", "Looker", "SQL", "reporting", "KPI"]
+title_include = 'data|analy|BI\b|reporting|insight'
+title_exclude = 'engineer|scientist|stage|alternance|intern'

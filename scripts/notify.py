@@ -2,7 +2,7 @@
 
 macOS uses osascript, Linux uses notify-send; elsewhere the message is printed only.
 
-Usage: python scripts/notify.py "Sent: Acme — AI Builder" "via Greenhouse · 6 questions answered · 7/12"
+Usage: python scripts/notify.py "Sent: Acme — Customer Success Manager" "via Greenhouse · 6 questions answered · 7/12"
 """
 from __future__ import annotations
 

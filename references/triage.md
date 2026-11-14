@@ -12,21 +12,26 @@ approximate ones.**
 2. **Listing pass** on `details.json`: read `missions` + `profile` + `process` IN FULL. That is where
    the real requirements hide ("5 years minimum", "engineering school", "fluent German").
 
+Every threshold comes from the user's `rules.toml`. There is no "right" level: a senior and a career
+changer get opposite shortlists from the same sweep, and both are correct.
+
 ## Skip when
-- Years of experience required exceed `max_years_required` (watch the text, not only the badge:
-  a third of "junior" listings ask for 3 to 5 years in the body).
-- A degree the profile lacks is written as mandatory (if `skip_if_degree_required`).
-- The core skill is one the profile does not have (hand-coding, advanced SQL, Figma, media buying…).
-- A language is required above the profile's real level, or not in `languages`.
-- The title lies: a "Product Builder" who is really PM + designer + developer; a "Growth" role that is 100 % paid ads.
-- The job is somewhere other than the card says ("Paris" on WTTJ, Frankfurt in the text).
+- Required experience is outside `min_years_required` / `max_years_required` (0 = no limit). Read the
+  text, not only the badge: the level shown on the card and the one written in the body often differ.
+- A degree the profile lacks is written as mandatory, if `skip_if_degree_required`.
+- The core skill of the role is one the profile does not have.
+- A language is required above the profile's real level, or is not in `languages`.
+- It hits one of the user's `deal_breakers`.
+- The title does not match the content (the role is really another job under a trendy name).
+- The job is somewhere other than the card says (one city on the card, another in the text).
 - The company was already contacted (the script filters, but check subsidiaries and brand names).
 - Duplicate: two roles in the same company → keep only the closest one.
 
 ## Prefer
-- Openness signals: "atypical profile", "self-taught", "junior welcome", "first experience", "show us your projects".
 - A core of the role that matches the **proofs** in `profile.md`, not just the keywords.
-- Listings less than 14 days old.
+- Signals that the listing is open to this specific profile (noted at onboarding: what the user brings
+  that is unusual, and how listings tend to phrase it).
+- Recent listings, within `max_listing_age_days`.
 
 ## Stretch
 A listing one requirement above the profile can stay, marked "stretch", within `stretch_max_percent`.

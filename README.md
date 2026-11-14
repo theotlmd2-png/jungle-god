@@ -34,13 +34,14 @@
 git clone https://github.com/theotlmd2-png/jungle-god ~/.claude/skills/jungle-god
 ```
 
-Then, in Claude Code:
+Then open Claude Code and type:
 
 ```text
-I'm looking for a job, help me apply on Welcome to the Jungle.
+/jungle-god go
 ```
 
-That's it. The skill triggers on its own and starts onboarding.
+That's it. On the first run it starts onboarding and adapts everything to you; after that, the same
+command starts a new batch.
 Requirements: [Claude Code](https://claude.com/claude-code), Python 3.11+, Google Chrome.
 [Claude in Chrome](https://claude.com/chrome) is recommended for auto-apply; without it, you get texts to paste.
 
@@ -51,8 +52,8 @@ that fit you (because they are named differently), and rewriting the same cover 
 
 | By hand | With Jungle God |
 |---|---|
-| 3 job titles searched | 15 to 60 keywords per target job: tools, jargon, French and English titles |
-| You skim the title | Claude reads the **whole listing** and drops the ones asking for 5 years or a degree you don't have |
+| 3 job titles searched | 15 to 60 keywords per target job: tools, jargon, titles in every language of your market |
+| You skim the title | Claude reads the **whole listing** and drops the ones that miss your criteria: experience, degree, language, location, deal-breakers |
 | One generic letter | One letter per listing: a proof from your background for each thing they expect |
 | "Did I already apply there?" | Automatic blacklist, fed by your WTTJ tracker and every batch |
 | 20 minutes per ATS form | Claude fills Greenhouse, Lever, Teamtailor, Workday… from your application kit |
@@ -125,8 +126,8 @@ Sent, per site, left for you to finish, running total. Blacklist updated. Gmail 
 
 The pipeline is fixed. Your rules are not. During onboarding, Claude writes `rules.toml` with you:
 
-- years of experience you are willing to target, share of "stretch" listings;
-- a letter for every listing, or CV only; formal or informal; banned phrases; projects never to mention;
+- the experience range you target, degrees, languages, deal-breakers, share of "stretch" listings;
+- a letter for every listing, or CV only; tone and opening; banned phrases; projects never to mention;
 - one CV per job family, or light tweaks per listing;
 - channels: WTTJ only, or also career sites, Indeed, LinkedIn, spontaneous emails;
 - who clicks Submit: Claude after your GO, you after Claude fills, or texts only;
@@ -138,10 +139,11 @@ without GO, never the same application twice to one company, your data stays on 
 ## Day to day
 
 ```text
+/jungle-god go
 New batch: listings from the last 7 days, max 10.
 GO for 1, 3, 4, 7 and 9.
 Apply.
-Change my rules: I'm fine targeting 3 years of experience now.
+Change my rules: no more agency roles.
 ```
 
 ## What's inside
@@ -172,8 +174,8 @@ folder, outside the skill, and are git-ignored.
 ## Lessons learned the hard way
 
 - **Rejections within 48 hours are CV screens.** If they pile up, fix the CV, not the letters.
-- **Broad keywords beat job titles.** "n8n", "AI agents" or "AI adoption" surface roles that are never named the way you think.
-- **Title triage is not enough.** A third of "junior" listings ask for 3 to 5 years in the body.
+- **Broad keywords beat job titles.** The tools and jargon of your field surface roles that are never named the way you think.
+- **Title triage is not enough.** The real requirements hide in the body of the listing, not in the badge.
 - **One form at a time.** Several agents filling forms in parallel means mixed tabs and double submissions.
 - **WTTJ forms have two file inputs**: photo first, CV second. Target the right one.
 

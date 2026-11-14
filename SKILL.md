@@ -11,6 +11,14 @@ their rules, the GO on the shortlist.
 
 Always talk to the user in their language. Letters and form answers follow the listing's language.
 
+## Launch
+The user types `/jungle-god` (often followed by "go"), or simply talks about their job hunt.
+- `profile.md` missing or "Onboarding: not done" → greet in two lines (what the skill does, about
+  20 minutes of setup once), then start Step 0.
+- Onboarding done → propose the next action: a new batch since the last one, or finishing the
+  applications left in progress.
+Never assume anything about the user's situation (seniority, contract, country, job) before they say it.
+
 ```
           ┌───────────────── first run only ─────────────────┐
           │ 0. Onboarding: situation → CV → proofs → kit     │

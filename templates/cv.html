@@ -1,11 +1,11 @@
 <!doctype html>
 <!-- One-page A4 CV template. Claude replaces every bracketed block, removes what is not needed,
      then runs scripts/cv_pdf.py. Plain layout and selectable text, so ATS parsers can read it.
-     Write the CV in the language of the target market; section titles below are in French by default. -->
-<html lang="fr">
+     Write the CV in the language of the target market and translate the section titles accordingly. -->
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<title>CV — [Prénom Nom]</title>
+<title>CV — [First Last]</title>
 <style>
   @page { size: A4; margin: 0; }
   * { box-sizing: border-box; }
@@ -31,21 +31,21 @@
 <body>
 <div class="page">
   <header>
-    <h1>[Prénom Nom]</h1>
-    <div class="titre">[Métier visé, ex. : AI Automation Builder — n8n, agents IA, no-code]</div>
-    <div class="contact">[Ville] · [téléphone] · [email] · <a href="[url]">[portfolio ou LinkedIn]</a></div>
+    <h1>[First Last]</h1>
+    <div class="titre">[Target job title — 2 or 3 key skills]</div>
+    <div class="contact">[City] · [phone] · [email] · <a href="[url]">[portfolio or LinkedIn]</a></div>
   </header>
 
   <main>
-    <p class="accroche">[Deux lignes maximum : ce que je fais, pour qui, avec quelle preuve.]</p>
+    <p class="accroche">[Two lines max: what I do, for whom, with which proof.]</p>
 
     <section>
-      <h2>Expériences et projets</h2>
+      <h2>Experience & projects</h2>
       <div class="xp">
-        <div class="xp-tete"><span>[Rôle] — [Entreprise ou projet]</span><span class="xp-dates">[mois année – mois année]</span></div>
-        <div class="xp-lieu">[Ville · type de structure, taille]</div>
+        <div class="xp-tete"><span>[Role] — [Company or project]</span><span class="xp-dates">[month year – month year]</span></div>
+        <div class="xp-lieu">[City · type of organisation, size]</div>
         <ul>
-          <li>[Verbe d'action + ce qui a été fait + résultat chiffré si vrai]</li>
+          <li>[Action verb + what was done + result with a number, if true]</li>
           <li>[…]</li>
         </ul>
       </div>
@@ -55,18 +55,18 @@
 
   <aside>
     <section>
-      <h2>Compétences</h2>
+      <h2>Skills</h2>
       <ul>
-        <li>[Domaine : outils réellement pratiqués]</li>
+        <li>[Area: tools actually used]</li>
       </ul>
     </section>
     <section>
-      <h2>Formation</h2>
-      <p>[Diplôme — École, année]</p>
+      <h2>Education</h2>
+      <p>[Degree — School, year]</p>
     </section>
     <section>
-      <h2>Langues</h2>
-      <p>[Anglais : niveau réel]</p>
+      <h2>Languages</h2>
+      <p>[Language: real level]</p>
     </section>
   </aside>
 </div>

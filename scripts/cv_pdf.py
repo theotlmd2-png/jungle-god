@@ -3,7 +3,7 @@
 A throwaway Chrome profile is used: without it, headless Chrome can clash with the open Chrome
 session (and disconnect the Claude in Chrome extension).
 
-Usage: python scripts/cv_pdf.py cv/cv-ai.html [--out cv/cv-ai.pdf]
+Usage: python scripts/cv_pdf.py cv/cv-<family>.html [--out cv/cv-<family>.pdf]
 """
 from __future__ import annotations
 

@@ -33,9 +33,9 @@ open the listings with `open -a "Google Chrome" <url>` and hand the user the tex
    ```bash
    python $SK/scripts/notify.py "Sent: <Company> — <Role>" "via <route> · <n> questions answered · <i>/<total>"
    ```
-4. One line in the chat, right after the fact: `✓ Acme — AI Builder · Greenhouse · 6 questions · CV ai · 7/12`.
+4. One line in the chat, right after the fact: `✓ Acme — Customer Success Manager · Greenhouse · 6 questions · CV customer-success · 7/12`.
    For third-party sites, say what happened there ("created no account, answered the 4 screening questions,
-   uploaded cv-ai.pdf").
+   uploaded cv-customer-success.pdf").
 
 ## End of batch: the recap
 - Regenerate `review.py` (scoreboard: applications, sent, to finish, sites) and open it.

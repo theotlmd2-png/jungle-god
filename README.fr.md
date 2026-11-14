@@ -21,14 +21,14 @@ Il balaye des centaines d'offres, garde celles qui te correspondent vraiment, é
 git clone https://github.com/theotlmd2-png/jungle-god ~/.claude/skills/jungle-god
 ```
 
-Puis, dans Claude Code :
+Puis ouvre Claude Code et tape :
 
 ```text
-Je cherche un CDI, aide-moi à postuler sur Welcome to the Jungle.
+/jungle-god go
 ```
 
-C'est tout : le skill se déclenche tout seul et lance l'onboarding. Claude te parle en français, et écrit les
-lettres dans la langue de chaque annonce.
+C'est tout. Au premier lancement, il démarre l'onboarding et adapte tout à ton profil ; ensuite, la même
+commande lance un nouveau lot. Claude te parle dans ta langue et écrit les lettres dans celle de chaque annonce.
 Prérequis : [Claude Code](https://claude.com/claude-code), Python 3.11+, Google Chrome.
 [Claude in Chrome](https://claude.com/chrome) est recommandé pour l'envoi automatique ; sans lui, tu reçois les textes à coller.
 
@@ -36,8 +36,8 @@ Prérequis : [Claude Code](https://claude.com/claude-code), Python 3.11+, Google
 
 | À la main | Avec Jungle God |
 |---|---|
-| 3 intitulés cherchés | 15 à 60 mots-clés par métier : outils, jargon, intitulés FR et EN |
-| Tu lis le titre | Claude lit **la fiche en entier** et écarte celles qui demandent 5 ans ou un diplôme que tu n'as pas |
+| 3 intitulés cherchés | 15 à 60 mots-clés par métier : outils, jargon, intitulés dans toutes les langues du marché |
+| Tu lis le titre | Claude lit **la fiche en entier** et écarte celles qui ne collent pas à tes critères : expérience, diplôme, langue, lieu, rédhibitoires |
 | Une lettre générique | Une lettre par offre : une preuve tirée de ton parcours pour chaque attente |
 | « J'ai déjà postulé là-bas ? » | Liste noire automatique, alimentée par ton suivi WTTJ et chaque lot |
 | 20 minutes par formulaire ATS | Claude remplit Greenhouse, Lever, Teamtailor, Workday… à partir de ton kit de candidature |
@@ -60,8 +60,8 @@ Prérequis : [Claude Code](https://claude.com/claude-code), Python 3.11+, Google
 
 ## Il s'adapte à toi
 
-Le pipeline est fixe, tes règles ne le sont pas (`rules.toml`, rempli avec toi à l'onboarding) : années
-d'expérience visées, lettre ou non, tutoiement, canaux (WTTJ, sites carrière, Indeed, LinkedIn, candidatures
+Le pipeline est fixe, tes règles ne le sont pas (`rules.toml`, rempli avec toi à l'onboarding) : fourchette
+d'expérience visée, diplômes, langues, rédhibitoires, lettre ou non, ton, canaux (WTTJ, sites carrière, Indeed, LinkedIn, candidatures
 spontanées), qui clique sur « Envoyer », taille des lots, notifications.
 
 Ce qui ne bouge jamais : **zéro invention**, pas d'envoi sans GO, jamais deux candidatures identiques dans
@@ -70,10 +70,11 @@ la même boîte, tes données restent sur ta machine.
 ## Au quotidien
 
 ```text
+/jungle-god go
 Nouveau lot : les offres des 7 derniers jours, max 10.
 GO pour 1, 3, 4, 7 et 9.
 Envoie.
-Change mes règles : je veux bien viser 3 ans d'expérience maintenant.
+Change mes règles : plus d'offres en agence.
 ```
 
 ## Avertissements

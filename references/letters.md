@@ -12,7 +12,7 @@ seconds it must show the listing was read and that there is a proof for each exp
 4. End on drive and desire, never on a reservation.
 
 ## Format
-- `paragraphs` short paragraphs, 10 to 15 lines in total. `opening` first; formal or informal per `informal`.
+- `paragraphs` short paragraphs, 10 to 15 lines in total. `opening` first, in the `tone` set at onboarding.
 - First paragraph: their stake, their customers' or their product's, not "I".
 - `single_link`: one link per application, at the end. If the form already has a portfolio or LinkedIn
   field carrying it, remove it from the letter.
