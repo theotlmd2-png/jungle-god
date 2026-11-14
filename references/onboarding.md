@@ -5,11 +5,16 @@ Goal: fit the skill to THIS person without bending the pipeline. At the end, the
 and an **approved model letter**. Target: 15 to 25 minutes. Speak the user's language throughout.
 
 ## How to ask
-- In blocks of 2 to 4 questions with AskUserQuestion when available: proposed choices, recommended one first.
-  Otherwise in plain text, one block at a time.
+- **Talk, in the chat, like a person.** Open questions first, one or two at a time, in the user's words
+  ("Tell me what you're looking for, even if it's vague"). Follow up on what they say instead of
+  marching through a list; one answer often covers several questions below.
+- No multiple-choice dialog for questions about who they are (job, story, proofs): it feels like an
+  admin form. Choice dialogs are fine later, for closed settings (block E rules), and only if the user
+  seems to like them.
 - Never ask what you can read yourself (CV, LinkedIn, portfolio, GitHub, listings).
-- After each block, restate what you understood in one line.
-- Skipped question → the default from `rules.example.toml` applies; say so.
+- After each block, restate what you understood in one line, so they can correct it.
+- Skipped question → the neutral default from `rules.example.toml` applies; say so.
+- Technical setup (`references/setup.md`) is done in the background when first needed, never at the start.
 
 ## Block A — Situation
 1. Target job(s)? Propose 3 to 5 close titles inferred from what they say.
@@ -53,8 +58,8 @@ The template holds neutral values only. Fill each rule from the answers so far, 
 table (rule, value, what it changes), then ask what to change. The questions that really vary between people:
 - What level of required experience fits you, from how many years to how many? (`min_years_required`, `max_years_required`)
 - Skip listings that require a degree you do not have, or try anyway? (`skip_if_degree_required`)
-- A letter for every listing, or CV only? (`letter.enabled`)
-- Tone and opening of the letters? (`tone`, `opening`)
+- Tone of the letters: formal or more direct? (`tone`, `opening`). Every application sends the CV **and**
+  a letter by default; only turn letters off (`letter.enabled = false`) if the user asks for CV-only.
 - Who clicks Submit: me after your GO, you after I fill, or texts only? (`sending.mode`)
 - Which channels besides WTTJ? (`channels`)
 - Desktop notification after each application? (`notify.desktop`)
@@ -70,9 +75,12 @@ Write `rules.toml` from the template with their choices.
 5. Every later letter starts from this base: same tone, same structure, content specific to each listing.
 
 ## Block G — Search criteria
-Write `criteria.toml`: one family per target job, 15 to 60 keywords (titles in every language of the market, tools,
-jargon, synonyms), title include/exclude filters from block A. Run a control sweep and show the volume
-per family; adjust when a family is empty or flooded.
+Write `criteria.toml`: cities, contracts, and one family per target job with its title include/exclude
+filters from block A. For each family, find the WTTJ job pages that cover it:
+`python $SK/scripts/sweep.py --probe "<title 1>" "<title 2>" …` (try 5 to 15 likely titles, in French) and
+`--list-pages <word>`. Put the pages that exist in `wttj_pages`; WTTJ's index is incomplete, so always probe.
+`keywords` only serve the optional fast mode. Run a control sweep and show the volume per family; adjust
+when a family is empty or flooded.
 
 ## End of onboarding
 - Replace `Onboarding: not done` with `Onboarding: done YYYY-MM-DD` at the top of `profile.md`. Next time,
@@ -85,6 +93,8 @@ Start from `templates/cv.html` (one A4 page, plain, ATS-readable):
 1. Collect: target title, 3 to 5 experiences or projects with one proof each, real skills and tools,
    education, languages, links. Photo only if wanted (common in France, discouraged elsewhere).
 2. Write `cv/cv-<family>.html` by replacing the template blocks. Title = the target job, not "looking for a job".
-3. `python $SK/scripts/cv_pdf.py cv/cv-<family>.html`, check it fits one page, `open` it.
+3. `python $SK/scripts/cv_pdf.py cv/cv-<family>.html`, then **look at it yourself before showing it**
+   (screenshot the HTML at 794×1123 with headless Chrome, or read the PDF): one page, no empty band,
+   nothing cut, columns aligned. Set `--accent` to a colour that suits the profile. Only then `open` it.
 4. Iterate on feedback, then copy the facts into `profile.md`.
 Rules: zero invention, action verbs, one number per line when one exists, no skill gauges.

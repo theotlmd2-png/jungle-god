@@ -36,14 +36,10 @@ seconds it must show the listing was read and that there is a proof for each exp
 
 ## Storage
 All applications of a batch go to `applications/batch-YYYY-MM-DD/applications.json`
-(format: `templates/applications.example.json`). Then:
-
-```bash
-python ~/.claude/skills/jungle-god/scripts/review.py applications/batch-YYYY-MM-DD/applications.json
-open applications/batch-YYYY-MM-DD/applications.html
-```
-
-Never review the raw JSON.
+(format: `templates/applications.example.json`). Then **show every letter in full in the chat**, one after
+the other: `### Company — Role`, one line with the risk, the letter in a quote block, then the prepared
+form answers. The user reviews and corrects in the chat. Never send them to an HTML page or the raw JSON
+for review; `review.py` is only the end-of-batch scoreboard.
 
 ## Corrections
 When the user corrects ONE rule ("just apply the link rule"), fix that rule and nothing else. Do not rewrite

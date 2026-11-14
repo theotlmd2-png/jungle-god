@@ -14,7 +14,8 @@ Always talk to the user in their language. Letters and form answers follow the l
 ## Launch
 The user types `/jungle-god` (often followed by "go"), or simply talks about their job hunt.
 - `profile.md` missing or "Onboarding: not done" → greet in two lines (what the skill does, about
-  20 minutes of setup once), then start Step 0.
+  20 minutes of setup once), then **ask the first open question right away**: what job they are looking
+  for, and where, in their own words. No file, no browser, no technical step before the person has talked.
 - Onboarding done → propose the next action: a new batch since the last one, or finishing the
   applications left in progress.
 Never assume anything about the user's situation (seniority, contract, country, job) before they say it.
@@ -26,7 +27,7 @@ Never assume anything about the user's situation (seniority, contract, country, 
           └────────────────────────┬─────────────────────────┘
                                    ▼
  1. Sweep ──▶ 2. Triage ──▶ 3. Shortlist ──▶ GO ──▶ 4. Letters ──▶ 5. Apply ──▶ 6. Recap
- search.py    details.py     table          human   applications    Chrome +     review.py
+  sweep.py    details.py     table          human   applications    Chrome +     review.py
                                                     .json           notify.py    blacklist.py
      ▲                                                                                │
      └───────────────────── companies already contacted are excluded ◀────────────────┘
@@ -49,25 +50,31 @@ it to `rules.toml` or `profile.md › Learned preferences` and say so in one lin
 - One batch = `applications/batch-YYYY-MM-DD/`.
 
 ## Step 0 — Onboarding (when `profile.md` is missing or says "Onboarding: not done")
-1. Technical setup: `references/setup.md`. Do it yourself as far as possible.
-2. Interview and build: `references/onboarding.md`, blocks A to G: situation, CV (read, improved or
-   built from `templates/cv.html`), proofs, **Application kit** (so third-party forms can be filled
-   without stopping), rules, **model letter approved on a real listing**, search criteria.
+1. **A conversation, not a form.** Interview per `references/onboarding.md`, blocks A to G: situation,
+   CV (read, improved or built from `templates/cv.html`), proofs, **Application kit** (so third-party
+   forms can be filled without stopping), rules, **model letter approved on a real listing**, criteria.
+2. Technical setup (`references/setup.md`) happens **silently in the background**, only when first needed
+   (just before the first sweep, in block F). Never open with it, never make the user wait on it.
 3. If the user is in a hurry: blocks A, B, D and F, defaults elsewhere, and say so.
 
-## Step 1 — Sweep
+## Step 1 — Sweep (behind the scenes, no key, no browser)
 ```bash
 python $SK/scripts/blacklist.py --root applications
-python $SK/scripts/search.py --days 14 --out applications/batch-YYYY-MM-DD/hits.json
+python $SK/scripts/sweep.py --out applications/batch-YYYY-MM-DD/hits.json
 ```
-- Window: since the last batch if recent, else `max_listing_age_days`.
-- Over 300 results: tighten title filters. Under 20: broaden keywords or the window, or see `references/channels.md`.
-- Report raw volume, listings dropped by the blacklist, split by family.
+`sweep.py` reads WTTJ's public job pages listed under `wttj_pages` in `criteria.toml` (found at onboarding
+with `--probe` / `--list-pages`), drops listings outside the user's area or with an excluded title, and
+listings already contacted. Nothing to configure for the user.
+- Optional fast mode: a user who pasted WTTJ's search credentials in `.env` can use `search.py`
+  (keyword search over the whole index). Never extract those credentials by script.
+- Report raw volume, out of scope, already contacted, kept.
 
 ## Step 2 — Triage (the heart of it)
-`references/triage.md` with the thresholds from `rules.toml [triage]`. Title pass on `hits.json` → `keys.txt`, then:
+`references/triage.md` with the thresholds from `rules.toml [triage]`. Read every kept listing, filtered on
+contract, area, title and age:
 ```bash
-python $SK/scripts/details.py --keys applications/batch-YYYY-MM-DD/keys.txt --out applications/batch-YYYY-MM-DD/details.json
+python $SK/scripts/details.py --keys applications/batch-YYYY-MM-DD/hits.json --criteria criteria.toml \
+  --days <max_listing_age_days> --out applications/batch-YYYY-MM-DD/details.json
 ```
 Read each listing IN FULL. A listing passes because its missions match the proofs in `profile.md`,
 not because it contains a keyword.
@@ -79,12 +86,19 @@ The table from `references/triage.md`, skipped listings included with their reas
 ## Step 4 — Letters
 `references/letters.md` + `rules.toml [letter]`, **starting from the approved model letter**. Answers ready
 for every form question, from the listing and the Application kit. CV picked by family. Everything goes to
-`applications.json`, then `review.py`, then open the HTML. If `letter.enabled = false`, prepare the form answers only.
+`applications.json`, and **every letter is shown in full in the chat** (company and role as a heading, the
+risk in one line, then the letter in a quote block) for the user to review there. No HTML page for review:
+`review.py` is only for the end-of-batch scoreboard. If `letter.enabled = false`, show the form answers only.
 
 ## Step 5 — Apply
-`references/apply.md` in the chosen `sending.mode`; `references/channels.md` for ATS, career pages,
-other boards and spontaneous applications. After **each** application: update `status`, desktop
-notification if enabled, and one line in the chat saying what was done and where.
+1. **Open every GO listing at once** in Chrome, one tab each, in shortlist order, and tell the user
+   "N tabs open, I'm going through them one by one". This is the moment the user sees the batch for real.
+2. Then go **tab by tab, in order**: follow the apply button to the real form (WTTJ or the ATS),
+   fill it per `references/apply.md` in the chosen `sending.mode`, check every field, submit only if the
+   mode and the GO allow it, then move to the next tab. `references/channels.md` covers ATS, career
+   pages, other boards and spontaneous applications.
+3. After **each** application: update `status`, desktop notification if enabled, and one line in the
+   chat saying what was done and where.
 
 ## Step 6 — Recap
 `review.py` scoreboard opened, chat summary (sent, per site, left to the user, running total), `blacklist.py`.

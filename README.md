@@ -42,8 +42,8 @@ Then open Claude Code and type:
 
 That's it. On the first run it starts onboarding and adapts everything to you; after that, the same
 command starts a new batch.
-Requirements: [Claude Code](https://claude.com/claude-code), Python 3.11+, Google Chrome.
-[Claude in Chrome](https://claude.com/chrome) is recommended for auto-apply; without it, you get texts to paste.
+Requirements: [Claude Code](https://claude.com/claude-code), Python 3.11+, Google Chrome with the
+[Claude in Chrome](https://claude.com/chrome) extension. No WTTJ account or API key needed to search.
 
 ## Why
 
@@ -85,8 +85,8 @@ Then it writes a **model letter on a real listing**; you correct it, and every l
 <details>
 <summary><b>1 · Sweep</b>: hundreds of listings in seconds</summary>
 
-Queries WTTJ's search index with all your keywords, filters by date, city, remote and title, and removes
-companies you already contacted.
+Reads WTTJ's public job pages for your target jobs (no account, no key), filters by date, contract,
+city and title, and removes companies you already contacted.
 </details>
 
 <details>
@@ -158,7 +158,8 @@ references/
   apply.md               filling forms in Chrome, mandatory stops, notifications, recap
   channels.md            ATS, career pages, other boards, spontaneous applications
 scripts/                 stdlib Python, zero dependency
-  search.py              keyword sweep
+  sweep.py               keyless sweep of WTTJ's public job pages
+  search.py              optional fast keyword search (your own key)
   details.py             full listings and form questions
   blacklist.py           companies already contacted
   review.py              batch scoreboard and letters as HTML

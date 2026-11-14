@@ -29,8 +29,8 @@ Puis ouvre Claude Code et tape :
 
 C'est tout. Au premier lancement, il démarre l'onboarding et adapte tout à ton profil ; ensuite, la même
 commande lance un nouveau lot. Claude te parle dans ta langue et écrit les lettres dans celle de chaque annonce.
-Prérequis : [Claude Code](https://claude.com/claude-code), Python 3.11+, Google Chrome.
-[Claude in Chrome](https://claude.com/chrome) est recommandé pour l'envoi automatique ; sans lui, tu reçois les textes à coller.
+Prérequis : [Claude Code](https://claude.com/claude-code), Python 3.11+, Google Chrome avec l'extension
+[Claude in Chrome](https://claude.com/chrome). Ni compte WTTJ ni clé pour chercher.
 
 ## Pourquoi
 
@@ -49,8 +49,8 @@ Prérequis : [Claude Code](https://claude.com/claude-code), Python 3.11+, Google
    preuves. Pas de CV ? Il t'en construit un. Il remplit ton **kit de candidature** (droit au travail, préavis,
    prétentions, « comment nous avez-vous connus »…) pour finir seul n'importe quel formulaire tiers. Puis il
    écrit une **lettre modèle sur une vraie offre** : tu la corriges, et toutes les suivantes partent de là.
-1. **Balayage** : tous tes mots-clés sur l'index de recherche de WTTJ, filtrés par date, ville, télétravail et
-   titre, sans les entreprises déjà contactées.
+1. **Balayage** : les pages métier publiques de WTTJ qui te correspondent (sans compte ni clé), filtrées
+   par date, contrat, ville et titre, sans les entreprises déjà contactées.
 2. **Tri** : lecture complète des fiches et critères durs. Mieux vaut 5 offres justes que 16 approximatives.
 3. **Shortlist** : un tableau avec le pourquoi et le risque de chaque offre. **Rien ne part sans ton GO.**
 4. **Lettres** : une par offre, zéro invention, et toutes les questions du formulaire préparées.

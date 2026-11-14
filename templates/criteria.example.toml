@@ -6,13 +6,15 @@
 [search]
 cities = ["Lyon", "Villeurbanne"]
 accept_full_remote = true
-# Raw Algolia filter. Permanent contract: full_time. Fixed-term: temporary. Freelance: freelance.
-# Internship: internship. Apprenticeship: apprenticeship.
+contracts = ["full_time"]        # full_time (permanent), temporary, freelance, internship, apprenticeship
+# Only for the optional fast mode (search.py with your own key in .env):
 algolia_filter = "offices.country_code:FR AND contract_type:full_time"
 
 # One family = one target job, 15 to 60 keywords each.
 [[families]]
 name = "customer-success"
+# WTTJ public job pages read by sweep.py, found with: sweep.py --probe "chargé de clientèle" "customer success manager"
+wttj_pages = ["emploi-customer-success-manager", "emploi-charge-de-clientele"]
 keywords = [
   "customer success", "account manager", "chargé de clientèle", "onboarding", "chargé de compte",
   "relation client", "satisfaction client", "fidélisation", "support client", "CSM", "renouvellement",
@@ -23,6 +25,7 @@ title_exclude = 'stage|alternance|intern'
 
 [[families]]
 name = "data-analytics"
+wttj_pages = ["emploi-data-analyst"]
 keywords = ["data analyst", "analyste", "business intelligence", "BI", "Power BI", "Tableau", "Looker", "SQL", "reporting", "KPI"]
 title_include = 'data|analy|BI\b|reporting|insight'
 title_exclude = 'engineer|scientist|stage|alternance|intern'

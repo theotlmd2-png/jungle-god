@@ -7,25 +7,32 @@
 <meta charset="utf-8">
 <title>CV — [First Last]</title>
 <style>
+  /* One accent colour, changed per profile. Plain layout and selectable text, so ATS parsers can read it. */
+  :root { --accent: #1D4ED8; --ink: #111827; --muted: #4B5563; --panel: #F1F4F9; }
   @page { size: A4; margin: 0; }
   * { box-sizing: border-box; }
-  body { margin: 0; font: 10.5pt/1.45 -apple-system, "Helvetica Neue", Arial, sans-serif; color: #1d1d1f; }
-  .page { width: 210mm; height: 297mm; padding: 16mm 17mm; display: grid; grid-template-columns: 1fr 58mm; gap: 0 10mm; }
-  header { grid-column: 1 / -1; border-bottom: 2px solid #1d1d1f; padding-bottom: 5mm; margin-bottom: 6mm; }
-  h1 { font-size: 24pt; margin: 0; letter-spacing: -0.5px; }
-  .titre { font-size: 13pt; color: #0b5cad; font-weight: 600; margin-top: 1mm; }
-  .contact { font-size: 9.5pt; color: #555; margin-top: 2mm; }
-  .contact a { color: inherit; }
-  h2 { font-size: 9.5pt; text-transform: uppercase; letter-spacing: 1.2px; color: #0b5cad; margin: 0 0 2.5mm; }
-  section { margin-bottom: 6mm; }
-  .xp { margin-bottom: 4mm; }
-  .xp-tete { display: flex; justify-content: space-between; gap: 4mm; font-weight: 600; }
-  .xp-dates { font-weight: 400; color: #666; white-space: nowrap; font-size: 9.5pt; }
-  .xp-lieu { color: #555; font-size: 9.5pt; }
-  ul { margin: 1.5mm 0 0; padding-left: 4.5mm; }
-  li { margin-bottom: 1mm; }
-  aside p, aside li { font-size: 9.5pt; }
-  .accroche { font-size: 10.5pt; margin: 0 0 6mm; }
+  body { margin: 0; font: 10pt/1.45 -apple-system, "Helvetica Neue", Arial, sans-serif; color: var(--ink); }
+  .page { width: 210mm; height: 297mm; padding: 14mm 14mm 12mm; display: grid;
+          grid-template-columns: 58mm 1fr; grid-template-rows: auto 1fr; align-content: start; gap: 0 9mm; }
+  header { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 1.5mm;
+           padding: 0 0 6mm 5mm; margin-bottom: 7mm; border-left: 2.2mm solid var(--accent); border-bottom: 0.4mm solid #E5E7EB; }
+  h1 { font-size: 27pt; line-height: 1.05; margin: 0; letter-spacing: -0.6px; }
+  .titre { font-size: 12.5pt; color: var(--accent); font-weight: 650; }
+  .contact { font-size: 9pt; color: var(--muted); }
+  .contact a { color: inherit; text-decoration: none; }
+  main { grid-column: 2; grid-row: 2; }
+  aside { grid-column: 1; grid-row: 2; background: var(--panel); border-radius: 3mm; padding: 6mm 5mm; align-self: stretch; }
+  h2 { font-size: 8.8pt; text-transform: uppercase; letter-spacing: 1.4px; color: var(--accent); margin: 0 0 2.5mm; }
+  section { margin-bottom: 6.5mm; }
+  .accroche { font-size: 10.5pt; margin: 0 0 7mm; padding-bottom: 5mm; border-bottom: 0.4mm solid #E5E7EB; }
+  .xp { margin-bottom: 5mm; }
+  .xp-tete { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; font-weight: 650; font-size: 10.5pt; }
+  .xp-dates { font-weight: 400; color: var(--muted); white-space: nowrap; font-size: 8.8pt; }
+  .xp-lieu { color: var(--muted); font-size: 9pt; margin-top: 0.5mm; }
+  ul { margin: 1.8mm 0 0; padding-left: 4.2mm; }
+  li { margin-bottom: 1.2mm; }
+  aside ul { padding-left: 3.8mm; }
+  aside p, aside li { font-size: 9.2pt; margin-top: 0; }
 </style>
 </head>
 <body>

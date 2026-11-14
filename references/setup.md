@@ -14,28 +14,23 @@ cp $SK/templates/rules.example.toml rules.toml
 cp $SK/templates/profile.example.md profile.md
 ```
 
-Python 3.11+ is enough, with no dependency. Google Chrome is used for PDFs and for applying.
+Python 3.11+ is enough, with no dependency. **Google Chrome with the Claude in Chrome extension is required**:
+it is where the applications are opened and filled, in front of the user. Safari cannot be driven.
 
-## 2. WTTJ search credentials
-welcometothejungle.com searches an Algolia index with an application id and a **public, search-only key**,
-sent by every visitor's browser. To find them:
-
-1. Open https://www.welcometothejungle.com/fr/jobs in Chrome, then DevTools (`Cmd+Option+I`), **Network** tab.
-2. Type a keyword in the site's search bar.
-3. Filter requests on `algolia` and open one:
-   - `x-algolia-application-id` → `WTTJ_ALGOLIA_APP`
-   - `x-algolia-api-key` → `WTTJ_ALGOLIA_KEY`
-   - the index name in the URL (`/indexes/<name>/`) should end with `published_at_desc`
-4. Paste the values into `.env`.
-
-With the Claude in Chrome extension, do it for the user: open the page, type a search, then read the
-requests with `read_network_requests`. If the sweep ever returns 403, the key changed: do it again.
+## 2. Optional: fast keyword search
+`sweep.py` needs no key: it reads WTTJ's public job pages. `search.py` is an optional fast mode that
+searches WTTJ's whole index by keyword; it needs the site's public search credentials in `.env`.
+Offer it only to users who ask for more coverage. The user reads them once in Chrome DevTools: open
+https://www.welcometothejungle.com/fr/jobs, `Cmd+Option+I` → **Network**, search anything on the site,
+filter on `algolia`, open a request, copy `x-algolia-application-id` and `x-algolia-api-key` from
+**Request Headers**. Write them into `.env` yourself. Never extract them by script: header values are
+redacted for Claude in Chrome, and scripted extraction is treated as unauthorized access.
 
 ## 3. Smoke test
 ```bash
-python $SK/scripts/search.py --days 3 --out applications/test/hits.json
+python $SK/scripts/sweep.py --probe "ingénieur mécanique"
 ```
-Expected: `[OK] N listings since ...`. On a certificate error, the script already falls back to the
+Expected: `[OK] emploi-ingenieur-mecanique (20 listings on page 1)`. On a certificate error, the script already falls back to the
 system store; if it still fails, `pip install certifi`.
 
 ## 4. Starting blacklist

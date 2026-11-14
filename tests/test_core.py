@@ -68,3 +68,28 @@ def test_review_escapes_and_counts():
 
 def test_applescript_quoting():
     assert _applescript_string('say "hi" \\') == '"say \\"hi\\" \\\\"'
+
+
+def test_sweep_helpers():
+    from sweep import keep as sweep_keep, page_name, slug_city
+    assert page_name("Ingénieur bureau d'études") == "emploi-ingenieur-bureau-d-etudes"
+    assert slug_city("ingenieur-mecanique-h-f_la-defense") == "ladefense"
+    assert slug_city("ingenieur-calcul_paris_CAPGE_x1") == "paris"
+    no = re.compile(r"stage", re.I)
+    assert sweep_keep("ingenieur-mecanique_paris_X", {"paris"}, no)
+    assert not sweep_keep("ingenieur-mecanique_lyon", {"paris"}, no)
+    assert not sweep_keep("stage-ingenieur_paris", {"paris"}, no)
+
+
+def test_details_in_scope():
+    from details import in_scope
+    crit = {"search": {"cities": ["Paris"], "contracts": ["full_time"]},
+            "families": [{"title_include": "m[ée]cani", "title_exclude": "senior"}]}
+    base = {"published": "2026-11-10", "contract": "full_time", "cities": ["Paris"], "remote": None,
+            "title": "Ingénieur mécanique"}
+    since = date(2026, 11, 1)
+    assert in_scope(base, crit, since) == ""
+    assert in_scope({**base, "published": "2026-10-01"}, crit, since) == "too old"
+    assert in_scope({**base, "contract": "internship"}, crit, since).startswith("contract")
+    assert in_scope({**base, "cities": ["Lyon"]}, crit, since).startswith("out of area")
+    assert in_scope({**base, "title": "Senior ingénieur mécanique"}, crit, since) == "title"
