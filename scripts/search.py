@@ -1,10 +1,10 @@
-"""Balayage des offres WTTJ par mots-clés via l'index de recherche public du site.
+"""Keyword sweep of WTTJ listings through the site's public search index.
 
-Chaque famille de criteres.toml a ses requêtes et ses filtres de titre. Le script garde les offres
-récentes, dans les villes voulues (ou en full remote), hors entreprises déjà contactées.
+Each family in criteria.toml has its own keywords and title filters. The script keeps recent listings
+in the chosen cities (or fully remote), minus companies already contacted.
 
-Usage :
-  python scripts/search.py --config criteres.toml --days 14 --out candidatures/lot-2026-11-14/hits.json
+Usage:
+  python scripts/search.py --config criteria.toml --days 14 --out applications/batch-2026-11-14/hits.json
 """
 from __future__ import annotations
 
@@ -16,12 +16,13 @@ from datetime import date, timedelta
 from pathlib import Path
 
 from blacklist import is_blocked
-from common import SetupError, algolia_credentials, fail, http_json, load_toml, read_json, write_json, JOB_URL
+from common import JOB_URL, SetupError, algolia_credentials, fail, http_json, load_toml, read_json, write_json
 
 ATTRIBUTES = ["name", "slug", "organization", "offices", "published_at", "experience_level",
               "salary_minimum", "salary_maximum", "remote", "contract_type"]
 HITS_PER_PAGE = 100
-MAX_PAGES = 10  # Algolia plafonne à 1000 résultats par requête
+MAX_PAGES = 10  # Algolia caps a query at 1,000 results
+NO_MATCH = r"(?!x)x"
 
 
 def query_page(creds: tuple[str, str, str], query: str, page: int, filters: str) -> dict:
@@ -30,95 +31,94 @@ def query_page(creds: tuple[str, str, str], query: str, page: int, filters: str)
         f"https://{app}-dsn.algolia.net/1/indexes/{index}/query",
         body={"query": query, "hitsPerPage": HITS_PER_PAGE, "page": page,
               "filters": filters, "attributesToRetrieve": ATTRIBUTES},
-        headers={"X-Algolia-Application-Id": app, "X-Algolia-API-Key": key, "Referer": "https://www.welcometothejungle.com/"},
+        headers={"X-Algolia-Application-Id": app, "X-Algolia-API-Key": key,
+                 "Referer": "https://www.welcometothejungle.com/"},
     )
 
 
 def to_row(raw: dict) -> dict:
     org = raw.get("organization") or {}
     return {
-        "org": org.get("slug", ""), "entreprise": org.get("name", ""), "slug": raw.get("slug", ""),
-        "poste": raw.get("name", ""), "publiee": (raw.get("published_at") or "")[:10],
-        "villes": sorted({o.get("city") for o in raw.get("offices") or [] if o.get("city")}),
+        "org": org.get("slug", ""), "company": org.get("name", ""), "slug": raw.get("slug", ""),
+        "title": raw.get("name", ""), "published": (raw.get("published_at") or "")[:10],
+        "cities": sorted({o.get("city") for o in raw.get("offices") or [] if o.get("city")}),
         "experience": raw.get("experience_level"), "remote": raw.get("remote"),
-        "salaire": [raw.get("salary_minimum"), raw.get("salary_maximum")],
+        "salary": [raw.get("salary_minimum"), raw.get("salary_maximum")],
         "url": JOB_URL.format(org=org.get("slug", ""), slug=raw.get("slug", "")),
     }
 
 
-def keep(row: dict, cities: set[str], accept_remote: bool, include: re.Pattern, exclude: re.Pattern, since: date) -> bool:
-    if not row["publiee"] or date.fromisoformat(row["publiee"]) < since:
+def in_area(cities: list[str], wanted: set[str]) -> bool:
+    """Exact city match; 'Paris' also matches districts such as 'Paris 9e'."""
+    return bool(set(cities) & wanted) or ("Paris" in wanted and any(c.startswith("Paris") for c in cities))
+
+
+def keep(row: dict, wanted: set[str], accept_remote: bool, include: re.Pattern, exclude: re.Pattern, since: date) -> bool:
+    if not row["published"] or date.fromisoformat(row["published"]) < since:
         return False
-    in_city = bool(set(row["villes"]) & cities) or any("Paris" in c for c in row["villes"] if "Paris" in cities)
-    if not in_city and not (accept_remote and row["remote"] == "fulltime"):
+    if not in_area(row["cities"], wanted) and not (accept_remote and row["remote"] == "fulltime"):
         return False
-    return bool(include.search(row["poste"])) and not exclude.search(row["poste"])
+    return bool(include.search(row["title"])) and not exclude.search(row["title"])
 
 
 def sweep(config: dict, since: date, blacklist: dict, creds) -> tuple[dict, dict]:
-    search = config["recherche"]
-    cities = set(search["villes"])
-    accept_remote = search.get("accepter_full_remote", True)
-    filters = search.get("filtre_algolia", "offices.country_code:FR AND contract_type:full_time")
+    search = config["search"]
+    wanted = set(search["cities"])
+    accept_remote = search.get("accept_full_remote", True)
+    filters = search.get("algolia_filter", "offices.country_code:FR AND contract_type:full_time")
     found, blocked, failures, total = {}, {}, 0, 0
-    for family in config["familles"]:
-        include = re.compile(family["titre_inclure"], re.I)
-        exclude = re.compile(family.get("titre_exclure", r"$^"), re.I)
-        for query in family["requetes"]:
+    for family in config["families"]:
+        include = re.compile(family["title_include"], re.I)
+        exclude = re.compile(family.get("title_exclude") or NO_MATCH, re.I)
+        for query in family["keywords"]:
             total += 1
             for page in range(MAX_PAGES):
                 try:
                     result = query_page(creds, query, page, filters)
                 except RuntimeError as exc:
-                    print(f"[ATTENTION] {query} p{page} : {exc}", file=sys.stderr)
+                    print(f"[WARN] {query} p{page}: {exc}", file=sys.stderr)
                     failures += page == 0
                     break
                 hits = result.get("hits", [])
                 rows = [to_row(raw) for raw in hits]
-                oldest = min((r["publiee"] for r in rows if r["publiee"]), default="")
                 for row in rows:
                     key = f"{row['org']}/{row['slug']}"
-                    if key in found or not keep(row, cities, accept_remote, include, exclude, since):
-                        if key in found:
-                            found[key]["requetes"].append(query)
-                        continue
-                    if is_blocked(blacklist, row["org"], row["entreprise"]):
-                        blocked[key] = row
-                        continue
-                    found[key] = {**row, "famille": family["nom"], "requetes": [query]}
-                # index trié par date : inutile de paginer au-delà de la fenêtre
+                    if key in found:
+                        found[key]["keywords"].append(query)
+                    elif keep(row, wanted, accept_remote, include, exclude, since):
+                        if is_blocked(blacklist, row["org"], row["company"]):
+                            blocked[key] = row
+                        else:
+                            found[key] = {**row, "family": family["name"], "keywords": [query]}
+                oldest = min((r["published"] for r in rows if r["published"]), default="")
+                # the index is sorted by date: no need to page past the window
                 if len(hits) < HITS_PER_PAGE or (oldest and date.fromisoformat(oldest) < since):
                     break
                 time.sleep(0.3)
             time.sleep(0.2)
     if total and failures == total:
-        raise SetupError("Toutes les requêtes ont échoué : vérifie la connexion et les identifiants (references/setup.md).")
+        raise SetupError("Every query failed: check your connection and credentials (references/setup.md).")
     return found, blocked
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--config", type=Path, default=Path("criteres.toml"))
-    parser.add_argument("--days", type=int, default=14, help="âge maximal des offres en jours")
-    parser.add_argument("--since", type=date.fromisoformat, help="date de début (prioritaire sur --days)")
-    parser.add_argument("--blacklist", type=Path, default=Path("candidatures/blacklist.json"))
+    parser.add_argument("--config", type=Path, default=Path("criteria.toml"))
+    parser.add_argument("--days", type=int, default=14, help="maximum listing age in days")
+    parser.add_argument("--since", type=date.fromisoformat, help="start date (overrides --days)")
+    parser.add_argument("--blacklist", type=Path, default=Path("applications/blacklist.json"))
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
 
-    try:
-        creds = algolia_credentials()
-        config = load_toml(args.config)
-    except SetupError as exc:
-        fail(str(exc))
     since = args.since or (date.today() - timedelta(days=args.days))
     try:
-        found, blocked = sweep(config, since, read_json(args.blacklist, {}), creds)
+        found, blocked = sweep(load_toml(args.config), since, read_json(args.blacklist, {}), algolia_credentials())
     except SetupError as exc:
         fail(str(exc))
-    ordered = dict(sorted(found.items(), key=lambda kv: kv[1]["publiee"], reverse=True))
+    ordered = dict(sorted(found.items(), key=lambda kv: kv[1]["published"], reverse=True))
     write_json(args.out, ordered)
-    write_json(args.out.with_name(args.out.stem + "_bloquees.json"), blocked)
-    print(f"[OK] {len(found)} offres depuis le {since} ; {len(blocked)} écartées (déjà contactées) -> {args.out}")
+    write_json(args.out.with_name(args.out.stem + "_blocked.json"), blocked)
+    print(f"[OK] {len(found)} listings since {since}; {len(blocked)} skipped (already contacted) -> {args.out}")
 
 
 if __name__ == "__main__":

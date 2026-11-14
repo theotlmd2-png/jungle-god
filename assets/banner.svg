@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="400" viewBox="0 0 1280 400" role="img" aria-labelledby="t d">
+  <title id="t">Jungle God</title>
+  <desc id="d">Jungle God: a Claude Code skill that turns your Welcome to the Jungle job hunt into a pipeline.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07110C"/>
+      <stop offset="1" stop-color="#0D1F16"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.78" cy="0.45" r="0.55">
+      <stop offset="0" stop-color="#22C55E" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#22C55E" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#BBF7D0"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#22C55E" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="leaf" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#22C55E" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#15803D" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="400" rx="24" fill="url(#bg)"/>
+  <rect width="1280" height="400" rx="24" fill="url(#grid)"/>
+  <rect width="1280" height="400" rx="24" fill="url(#glow)"/>
+
+  <!-- feuilles géométriques -->
+  <g fill="url(#leaf)">
+    <path d="M1180 -20c80 60 90 150 30 230c-40-70-60-150-30-230z"/>
+    <path d="M1250 120c40 70 20 150-50 200c-10-80 10-150 50-200z"/>
+    <path d="M-30 300c90-30 170 0 220 80c-90 20-170 0-220-80z"/>
+    <path d="M40 420c30-80 100-120 190-110c-40 70-110 110-190 110z"/>
+  </g>
+
+  <!-- marque -->
+  <g font-family="JetBrains Mono, SF Mono, Menlo, Consolas, monospace">
+    <rect x="72" y="70" width="232" height="34" rx="17" fill="#22C55E" fill-opacity="0.12" stroke="#22C55E" stroke-opacity="0.45"/>
+    <circle cx="94" cy="87" r="5" fill="#22C55E"/>
+    <text x="108" y="93" font-size="15" font-weight="600" fill="#86EFAC" letter-spacing="1">CLAUDE CODE SKILL</text>
+  </g>
+
+  <text x="68" y="196" font-family="Inter, -apple-system, Segoe UI, Helvetica, Arial, sans-serif" font-size="104" font-weight="800" letter-spacing="-4" fill="url(#title)">Jungle God</text>
+
+  <g font-family="Inter, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+    <text x="72" y="250" font-size="27" font-weight="600" fill="#F8FAFC">Apply to 200 jobs. Each one like it's the only one.</text>
+    <text x="72" y="290" font-size="19" fill="#94A3B8">Keyword sweep · full-listing triage · tailored letters · auto-apply</text>
+    <text x="72" y="318" font-size="19" fill="#94A3B8">For Welcome to the Jungle, career sites and ATS forms.</text>
+  </g>
+
+  <!-- terminal -->
+  <g transform="translate(800 92)">
+    <rect width="412" height="236" rx="14" fill="#020806" fill-opacity="0.88" stroke="#22C55E" stroke-opacity="0.35"/>
+    <circle cx="24" cy="22" r="6" fill="#F87171"/>
+    <circle cx="44" cy="22" r="6" fill="#FBBF24"/>
+    <circle cx="64" cy="22" r="6" fill="#22C55E"/>
+    <text x="96" y="27" font-family="JetBrains Mono, SF Mono, Menlo, Consolas, monospace" font-size="13" fill="#64748B">~/job-hunt</text>
+    <g font-family="JetBrains Mono, SF Mono, Menlo, Consolas, monospace" font-size="16">
+      <text x="24" y="70" fill="#86EFAC">❯ <tspan fill="#E2E8F0">sweep</tspan><tspan fill="#64748B">  2,862 listings</tspan></text>
+      <text x="24" y="102" fill="#86EFAC">❯ <tspan fill="#E2E8F0">triage</tspan><tspan fill="#64748B"> 38 read in full</tspan></text>
+      <text x="24" y="134" fill="#86EFAC">❯ <tspan fill="#E2E8F0">shortlist</tspan><tspan fill="#64748B"> 12 · GO</tspan></text>
+      <text x="24" y="166" fill="#86EFAC">❯ <tspan fill="#E2E8F0">apply</tspan><tspan fill="#64748B">  WTTJ · Greenhouse · Lever</tspan></text>
+      <text x="24" y="206" fill="#22C55E" font-weight="700">✓ 12 tailored applications sent</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,52 @@
+# ADJUSTABLE rules: they fit the person. Claude fills them in during onboarding (references/onboarding.md)
+# and rereads them at the start of every batch. Every rule has a default; set `enabled = false` to turn a block off.
+# The CORE (pipeline order, zero invention, human GO, blacklist) is not in here: it cannot be turned off.
+
+[triage]
+max_years_required = 2          # skip listings asking for more than this
+stretch_max_percent = 20        # max share of "one requirement above" listings in a batch
+max_listing_age_days = 14
+skip_if_degree_required = true  # skip when a degree the profile lacks is written as mandatory
+languages = ["French"]          # add "English" only if the level really allows it
+batch_size = 12                 # listings per shortlist
+quota = {}                      # e.g. { "sales" = 4 }: at most 4 listings of that family per batch
+
+[channels]
+wttj = true
+career_sites = true             # company career pages and ATS (Greenhouse, Lever, Teamtailor, Ashby, Workable…)
+other_boards = []               # e.g. ["Indeed", "LinkedIn", "HelloWork", "APEC", "JobTeaser"]
+spontaneous = false             # spontaneous applications by email (drafted, never sent without a GO)
+
+[letter]
+enabled = true                  # false = CV only, no cover letter
+paragraphs = [3, 5]
+informal = false                # true = "tu" / first-name tone, for startups that write that way
+opening = "Bonjour,"
+language = "same as the listing"
+single_link = true              # one link (portfolio, GitHub…) per application, at the end of the letter
+link = ""
+gap_sentence = "one sentence"   # "none" | "one sentence" | "one paragraph"
+banned_phrases = ["passionné", "je coche toutes les cases", "n'hésitez pas"]
+never_mention = []              # projects or facts never to be cited
+
+[cv]
+one_cv_per_family = true        # false = Claude may lightly tweak the CV per listing
+format = "pdf"
+
+[forms]
+answer_every_question = true
+salary = "profile range, else the listing's range"
+sensitive_questions = "prefer not to say"
+accounts = "ask"                # "ask" | "user_creates" | "claude_creates_with_user_email" (password typed by the user)
+
+[sending]
+mode = "claude_sends_after_go"  # "claude_sends_after_go" | "claude_fills_user_sends" | "texts_only"
+mandatory_consents = "ask"      # "ask" | "blanket_ok_given"
+reapply_same_company = "other_job_only"  # "never" | "other_job_only"
+
+[notify]
+desktop = true                  # macOS / Linux notification after each application (scripts/notify.py)
+recap = true                    # scoreboard page + chat recap at the end of each batch
+
+[follow_up]
+gmail = false                   # true if a Gmail MCP is connected: read replies at the end of each batch

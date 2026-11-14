@@ -1,57 +1,52 @@
-# Mise en place (10 minutes, une seule fois)
+# Setup (10 minutes, once)
 
-## 1. Dossier de travail
-Tes données restent hors du skill, dans un dossier à toi :
+Do everything you can yourself. Only hand over what needs the user's own hands (CV files, logging in).
+
+## 1. Working folder
+The user's data lives outside the skill, in a folder of their own (default `~/job-hunt`):
 
 ```bash
-mkdir -p ~/recherche-emploi/cv && cd ~/recherche-emploi
-SK=~/.claude/skills/wttj-job-hunter
+mkdir -p ~/job-hunt/cv ~/job-hunt/applications && cd ~/job-hunt
+SK=~/.claude/skills/jungle-god
 cp $SK/.env.example .env
-cp $SK/templates/criteres.example.toml criteres.toml
-cp $SK/templates/profil.example.md profil.md
-cp $SK/templates/regles.example.toml regles.toml
+cp $SK/templates/criteria.example.toml criteria.toml
+cp $SK/templates/rules.example.toml rules.toml
+cp $SK/templates/profile.example.md profile.md
 ```
 
-Dépose tes CV en PDF dans `cv/`. Python 3.11 ou plus suffit, sans aucune dépendance.
+Python 3.11+ is enough, with no dependency. Google Chrome is used for PDFs and for applying.
 
-## 2. Identifiants de recherche WTTJ
-La page de recherche de welcometothejungle.com interroge un index Algolia avec un identifiant
-d'application et une clé de **recherche publique** (lecture seule), visibles par n'importe quel navigateur.
-Pour les retrouver :
+## 2. WTTJ search credentials
+welcometothejungle.com searches an Algolia index with an application id and a **public, search-only key**,
+sent by every visitor's browser. To find them:
 
-1. Ouvre https://www.welcometothejungle.com/fr/jobs dans Chrome, puis les DevTools (`Cmd+Option+I`), onglet **Network**.
-2. Tape un mot-clé dans la barre de recherche du site.
-3. Filtre les requêtes sur `algolia`. Ouvre l'une d'elles :
+1. Open https://www.welcometothejungle.com/fr/jobs in Chrome, then DevTools (`Cmd+Option+I`), **Network** tab.
+2. Type a keyword in the site's search bar.
+3. Filter requests on `algolia` and open one:
    - `x-algolia-application-id` → `WTTJ_ALGOLIA_APP`
    - `x-algolia-api-key` → `WTTJ_ALGOLIA_KEY`
-   - le nom d'index dans l'URL (`/indexes/<nom>/`) doit se terminer par `published_at_desc`
-4. Colle les valeurs dans `.env`.
+   - the index name in the URL (`/indexes/<name>/`) should end with `published_at_desc`
+4. Paste the values into `.env`.
 
-Avec l'extension Claude in Chrome, Claude peut faire cette lecture à ta place (`read_network_requests`).
-Si la recherche renvoie un jour 403, c'est que la clé a changé : refais la manip.
+With the Claude in Chrome extension, do it for the user: open the page, type a search, then read the
+requests with `read_network_requests`. If the sweep ever returns 403, the key changed: do it again.
 
-## 3. Test
+## 3. Smoke test
 ```bash
-python $SK/scripts/search.py --days 3 --out candidatures/test/hits.json
+python $SK/scripts/search.py --days 3 --out applications/test/hits.json
 ```
-Tu dois voir `[OK] N offres depuis le ...`.
+Expected: `[OK] N listings since ...`. On a certificate error, the script already falls back to the
+system store; if it still fails, `pip install certifi`.
 
-## 4. Liste noire de départ
-Si tu as déjà postulé via WTTJ, récupère tes candidatures pour ne jamais repostuler au même endroit :
-ouvre https://www.welcometothejungle.com/fr/me/application-tracker, fais défiler jusqu'en bas,
-puis colle ce snippet dans la console. Il copie un nom d'entreprise par ligne :
+## 4. Starting blacklist
+If the user has applied before, collect those companies so they are never contacted twice.
 
-```js
-copy([...new Set([...document.querySelectorAll('a[href*="/companies/"]')]
-  .map(a => a.href.split('/companies/')[1]?.split('/')[0]).filter(Boolean))].join('\n'))
-```
-
-Colle le résultat dans `candidatures/tracker.txt`, ajoute les candidatures hors WTTJ dans
-`candidatures/extra.txt`, puis lance :
+- **WTTJ**: open https://www.welcometothejungle.com/fr/me/application-tracker (logged in), scroll to the
+  bottom, read the page and write one company name per line in `applications/tracker.txt`. The page
+  markup changes over time: read it rather than relying on a fixed selector.
+- **Everything else** (other boards, emails, rejections): one name per line in `applications/extra.txt`.
+  If Gmail is connected, search for application confirmations and rejections to fill it.
 
 ```bash
-python $SK/scripts/blacklist.py --root candidatures
+python $SK/scripts/blacklist.py --root applications
 ```
-
-Le sélecteur dépend du HTML de WTTJ. S'il ne renvoie rien, demande à Claude de lire la page et
-d'extraire les noms.

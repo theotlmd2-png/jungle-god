@@ -1,146 +1,195 @@
-# WTTJ Job Hunter
+<p align="center">
+  <img src="assets/banner.svg" alt="Jungle God: apply to 200 jobs, each one like it's the only one" width="100%">
+</p>
 
-**Un skill Claude Code qui transforme ta recherche d'emploi sur Welcome to the Jungle en pipeline.**
-Il balaye des centaines d'offres par mots-clés, garde celles qui te correspondent vraiment, écrit une
-lettre ciblée pour chacune à partir de TES faits, remplit les formulaires et n'oublie jamais où tu as déjà postulé.
+<p align="center">
+  <a href="https://claude.com/claude-code"><img src="https://img.shields.io/badge/Claude%20Code-skill-22C55E?style=flat-square" alt="Claude Code skill"></a>
+  <img src="https://img.shields.io/badge/python-3.11%2B-0F172A?style=flat-square&logo=python&logoColor=white" alt="Python 3.11+">
+  <img src="https://img.shields.io/badge/dependencies-0-0F172A?style=flat-square" alt="Zero dependencies">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-0F172A?style=flat-square" alt="MIT license"></a>
+  <a href="README.fr.md"><img src="https://img.shields.io/badge/lang-fran%C3%A7ais-0F172A?style=flat-square" alt="Version française"></a>
+</p>
 
-> Construit et utilisé pendant deux mois de recherche réelle : **plus de 130 candidatures ciblées**,
-> dont une bonne partie sur des offres que je n'aurais jamais trouvées en cherchant à la main.
+<p align="center">
+  <b>A Claude Code skill that turns your job hunt into a pipeline.</b><br>
+  It sweeps hundreds of listings, keeps the ones that truly fit, writes one tailored letter each<br>
+  from <i>your</i> real facts, fills the forms on any site, and never applies twice to the same company.
+</p>
+
+<p align="center">
+  <a href="#install">Install</a> ·
+  <a href="#how-it-works">How it works</a> ·
+  <a href="#it-adapts-to-you">It adapts to you</a> ·
+  <a href="README.fr.md">Français</a>
+</p>
 
 ---
 
-## Pourquoi
+> **Built during a real job hunt: 200+ targeted applications in two months**, on Welcome to the Jungle and
+> the ATS and career sites behind it, many of them on listings I would never have found by hand.
 
-Chercher un job à la main, c'est taper trois intitulés dans une barre de recherche, rater 80 % des
-offres qui te correspondent (parce qu'elles s'appellent autrement) et réécrire la même lettre à 23 h.
-
-Ce skill inverse la logique :
-
-| À la main | Avec le skill |
-|---|---|
-| 3 intitulés cherchés | 15 à 60 mots-clés par métier (outils, jargon, FR et EN) |
-| Tu lis le titre | Claude lit la fiche **en entier** et écarte celles qui demandent 5 ans ou un diplôme que tu n'as pas |
-| Une lettre générique | Une lettre par offre : une preuve tirée de ton parcours pour chaque attente de la fiche |
-| « J'ai déjà postulé là-bas ? » | Liste noire automatique, alimentée par ton suivi WTTJ |
-| 20 minutes par formulaire | Claude remplit dans Chrome, tu valides |
-
-## Comment ça marche
-
-```
-          ┌───────────── première fois seulement ─────────────┐
-          │ 0. Onboarding : situation → CV → preuves → règles │
-          │    → lettre modèle validée → critères             │
-          └───────────────────────┬───────────────────────────┘
-                                  ▼
- 1. Balayage ──▶ 2. Tri ──▶ 3. Shortlist ──▶ GO ──▶ 4. Lettres ──▶ 5. Envoi ──▶ 6. Suivi
-  mots-clés     fiche lue     tableau        toi     une par offre   Chrome      liste noire
-      ▲                                                                              │
-      └─────────────────── entreprises contactées exclues ◀──────────────────────────┘
-```
-
-**0. Onboarding.** Au premier lancement, Claude t'interviewe : métier visé, zone, expérience réelle,
-preuves (ce que tu as construit et avec quel résultat), ce qu'il ne faut jamais écrire. Pas de CV ?
-Il t'en construit un. Puis il écrit une **lettre modèle sur une vraie offre**, tu la corriges, et
-toutes les suivantes partent de cette base.
-
-**1. Balayage.** Interrogation de l'index de recherche de WTTJ avec tous tes mots-clés, filtrage par
-date, ville, télétravail et titre, puis exclusion des entreprises déjà contactées.
-
-**2. Tri.** Lecture complète des fiches retenues (missions, profil recherché, process, salaire,
-formulaire, questions obligatoires). C'est ici que se fait la précision : mieux vaut 5 offres justes que 16 approximatives.
-
-**3. Shortlist.** Un tableau : entreprise, poste, salaire, parcours de candidature, pourquoi ça colle,
-quel est le risque. **Rien ne part sans ton GO.**
-
-**4. Lettres.** Pour chaque offre, une preuve par attente de la fiche, l'écart assumé en une phrase,
-les réponses à toutes les questions du formulaire. Relecture dans une page HTML avec bouton « Copier ».
-
-**5. Envoi.** Claude remplit les formulaires un par un dans ton Chrome (WTTJ, Teamtailor, Greenhouse,
-Lever, Ashby…), vérifie chaque champ et s'arrête dès qu'il faut créer un compte, passer un CAPTCHA ou trancher un doute.
-
-**6. Suivi.** Statut de chaque candidature, liste noire mise à jour, et relevé des réponses dans Gmail si tu l'as branché.
-
-## Il s'adapte à toi
-
-Le pipeline est fixe, tes règles ne le sont pas. Pendant l'onboarding, Claude remplit `regles.toml` avec toi :
-
-- années d'expérience que tu acceptes de viser, part d'offres « stretch » ;
-- lettre pour chaque offre, ou CV seul ;
-- tutoiement ou vouvoiement, longueur, formules interdites, projets à ne jamais citer ;
-- un CV par métier, ou retouches légères par offre ;
-- qui clique sur « Envoyer » : Claude après ton GO, toi après son remplissage, ou textes seulement ;
-- taille des lots, dosage par métier (« max 4 offres sales par lot »).
-
-Ce qui ne bouge jamais, c'est le socle : **zéro invention** (rien n'est écrit qui ne soit dans ton
-profil), pas d'envoi sans GO, jamais deux candidatures identiques dans la même boîte, tes données restent chez toi.
-
-## Installation
-
-Prérequis : [Claude Code](https://claude.com/claude-code), Python 3.11+ (aucune dépendance), Google Chrome.
-L'extension [Claude in Chrome](https://claude.com/chrome) est recommandée pour l'envoi automatique ;
-sans elle, Claude te prépare les textes à coller.
+## Install
 
 ```bash
-git clone https://github.com/theotlmd2-png/wttj-job-hunter ~/.claude/skills/wttj-job-hunter
+git clone https://github.com/theotlmd2-png/jungle-god ~/.claude/skills/jungle-god
 ```
 
-Puis, dans Claude Code :
+Then, in Claude Code:
 
-```
-Je cherche un CDI, aide-moi à postuler sur Welcome to the Jungle.
-```
-
-Le skill se déclenche tout seul et lance l'onboarding. Le détail technique (identifiants de
-recherche, liste noire de départ) est dans [`references/setup.md`](references/setup.md), et Claude le fait avec toi.
-
-## Au quotidien
-
-```
-Nouveau lot : les offres des 7 derniers jours, max 10.
-GO pour 1, 3, 4, 7 et 9.
-Envoie.
-Change mes règles : je veux bien viser 3 ans d'expérience maintenant.
+```text
+I'm looking for a job, help me apply on Welcome to the Jungle.
 ```
 
-## Contenu du repo
+That's it. The skill triggers on its own and starts onboarding.
+Requirements: [Claude Code](https://claude.com/claude-code), Python 3.11+, Google Chrome.
+[Claude in Chrome](https://claude.com/chrome) is recommended for auto-apply; without it, you get texts to paste.
 
+## Why
+
+Job hunting by hand means typing three job titles into a search bar, missing most of the listings
+that fit you (because they are named differently), and rewriting the same cover letter at 11 pm.
+
+| By hand | With Jungle God |
+|---|---|
+| 3 job titles searched | 15 to 60 keywords per target job: tools, jargon, French and English titles |
+| You skim the title | Claude reads the **whole listing** and drops the ones asking for 5 years or a degree you don't have |
+| One generic letter | One letter per listing: a proof from your background for each thing they expect |
+| "Did I already apply there?" | Automatic blacklist, fed by your WTTJ tracker and every batch |
+| 20 minutes per ATS form | Claude fills Greenhouse, Lever, Teamtailor, Workday… from your application kit |
+| You refresh your inbox | A notification after each application, a scoreboard after each batch |
+
+## How it works
+
+```text
+          ┌───────────────── first run only ─────────────────┐
+          │ 0. Onboarding: situation → CV → proofs → kit     │
+          │    → rules → approved model letter → criteria    │
+          └────────────────────────┬─────────────────────────┘
+                                   ▼
+ 1. Sweep ──▶ 2. Triage ──▶ 3. Shortlist ──▶ GO ──▶ 4. Letters ──▶ 5. Apply ──▶ 6. Recap
+ keywords     full read      table           you     one each        any site     scoreboard
+     ▲                                                                                │
+     └───────────────────── companies already contacted are excluded ◀────────────────┘
 ```
-SKILL.md                     le cerveau : le pipeline que Claude suit
+
+<details open>
+<summary><b>0 · Onboarding</b>: it interviews you once</summary>
+
+Target job, area, real experience, proofs (what you built and with what result), what must never be
+written. No CV? It builds one. It collects your **application kit** (right to work, notice period,
+salary answer, "how did you hear about us"…) so it can finish any third-party form without stopping.
+Then it writes a **model letter on a real listing**; you correct it, and every later letter starts from it.
+</details>
+
+<details>
+<summary><b>1 · Sweep</b>: hundreds of listings in seconds</summary>
+
+Queries WTTJ's search index with all your keywords, filters by date, city, remote and title, and removes
+companies you already contacted.
+</details>
+
+<details>
+<summary><b>2 · Triage</b>: where the precision comes from</summary>
+
+Reads the shortlisted listings in full (missions, profile wanted, process, salary, form questions) and applies
+your hard criteria. Five right listings beat sixteen approximate ones.
+</details>
+
+<details>
+<summary><b>3 · Shortlist</b>: you decide</summary>
+
+One table: company, role, salary, application route, why it fits, what the risk is. **Nothing leaves without your GO.**
+</details>
+
+<details>
+<summary><b>4 · Letters</b>: one per listing, zero invention</summary>
+
+One proof per expectation of the listing, the gap owned in one sentence, every form question answered.
+Reviewed in an HTML page with Copy buttons.
+</details>
+
+<details>
+<summary><b>5 · Apply</b>: WTTJ, ATS, career pages, other boards</summary>
+
+Claude fills the forms one by one in your Chrome, checks every field, and stops for passwords, CAPTCHAs or
+any doubt. After each one: a desktop notification and one line telling you exactly what it did, and where.
+</details>
+
+<details>
+<summary><b>6 · Recap</b>: the scoreboard</summary>
+
+Sent, per site, left for you to finish, running total. Blacklist updated. Gmail replies read if connected.
+</details>
+
+## It adapts to you
+
+The pipeline is fixed. Your rules are not. During onboarding, Claude writes `rules.toml` with you:
+
+- years of experience you are willing to target, share of "stretch" listings;
+- a letter for every listing, or CV only; formal or informal; banned phrases; projects never to mention;
+- one CV per job family, or light tweaks per listing;
+- channels: WTTJ only, or also career sites, Indeed, LinkedIn, spontaneous emails;
+- who clicks Submit: Claude after your GO, you after Claude fills, or texts only;
+- batch size, quotas per job family, notifications.
+
+What never moves is the core: **zero invention** (nothing is written that is not in your profile), no submission
+without GO, never the same application twice to one company, your data stays on your machine.
+
+## Day to day
+
+```text
+New batch: listings from the last 7 days, max 10.
+GO for 1, 3, 4, 7 and 9.
+Apply.
+Change my rules: I'm fine targeting 3 years of experience now.
+```
+
+## What's inside
+
+```text
+SKILL.md                 the brain: the pipeline Claude follows
 references/
-  onboarding.md              l'interview du premier lancement, construction du CV
-  setup.md                   mise en place technique
-  tri.md                     critères durs, format de la shortlist
-  lettres.md                 méthode de rédaction, réponses aux formulaires
-  envoi.md                   remplissage dans Chrome, arrêts obligatoires, pièges connus
-scripts/
-  search.py                  balayage par mots-clés
-  details.py                 fiches complètes et questions des formulaires
-  blacklist.py               entreprises déjà contactées
-  lettres_view.py            relecture des lettres en HTML
-  cv_pdf.py                  CV ou lettre HTML → PDF A4
-templates/                   profil, règles, critères, CV, format des lettres
-tests/                       tests unitaires (pytest)
+  onboarding.md          first-run interview, application kit, CV building
+  setup.md               technical setup
+  triage.md              hard criteria, shortlist format
+  letters.md             writing method, form answers
+  apply.md               filling forms in Chrome, mandatory stops, notifications, recap
+  channels.md            ATS, career pages, other boards, spontaneous applications
+scripts/                 stdlib Python, zero dependency
+  search.py              keyword sweep
+  details.py             full listings and form questions
+  blacklist.py           companies already contacted
+  review.py              batch scoreboard and letters as HTML
+  notify.py              desktop notification after each application
+  cv_pdf.py              HTML CV or letter → A4 PDF
+templates/               profile, rules, criteria, CV, applications format
+tests/                   unit tests (pytest)
 ```
 
-Tes fichiers (`profil.md`, `regles.toml`, `criteres.toml`, `cv/`, `candidatures/`) vivent dans ton
-dossier de travail, en dehors du skill, et sont exclus de git.
+Your files (`profile.md`, `rules.toml`, `criteria.toml`, `cv/`, `applications/`) live in your own working
+folder, outside the skill, and are git-ignored.
 
-## Leçons apprises en route
+## Lessons learned the hard way
 
-- **Les refus en moins de 48 h sont des tris sur CV.** Si tu en enchaînes, c'est le CV qu'il faut revoir, pas les lettres.
-- **Les mots-clés larges battent les intitulés.** « n8n », « agents IA » ou « adoption IA » font remonter des postes qui ne s'appellent jamais comme tu le penses.
-- **Le tri sur le titre ne suffit pas.** Un tiers des offres « junior » demandent 3 à 5 ans dans le texte.
-- **Un remplissage à la fois.** Plusieurs agents qui remplissent des formulaires en parallèle, c'est des onglets mélangés et des envois en double.
-- **Deux champs fichier sur WTTJ** : la photo d'abord, le CV ensuite. Vise le bon.
+- **Rejections within 48 hours are CV screens.** If they pile up, fix the CV, not the letters.
+- **Broad keywords beat job titles.** "n8n", "AI agents" or "AI adoption" surface roles that are never named the way you think.
+- **Title triage is not enough.** A third of "junior" listings ask for 3 to 5 years in the body.
+- **One form at a time.** Several agents filling forms in parallel means mixed tabs and double submissions.
+- **WTTJ forms have two file inputs**: photo first, CV second. Target the right one.
 
-## Avertissements
+## Disclaimer
 
-- Projet indépendant, **sans lien avec Welcome to the Jungle**. Il utilise les mêmes requêtes de
-  recherche publiques que le site, à faible cadence, pour un usage personnel. Respecte les conditions
-  d'utilisation des sites que tu utilises ; n'en fais pas un scraper de masse.
-- Tu restes responsable de ce qui est envoyé en ton nom. Relis la shortlist et les lettres.
-- Les sites changent : si une recherche ou un formulaire casse, ouvre une issue.
+- Independent project, **not affiliated with Welcome to the Jungle**. It uses the same public search requests as
+  the website, at a low pace, for personal use. Respect the terms of the sites you use; do not turn it into a mass scraper.
+- You remain responsible for what is sent in your name. Review the shortlist and the letters.
+- Sites change. If a search or a form breaks, open an issue.
 
-## Licence
+## License
 
 MIT
+
+<p align="center">
+  <a href="https://star-history.com/#theotlmd2-png/jungle-god&Date">
+    <img src="https://api.star-history.com/svg?repos=theotlmd2-png/jungle-god&type=Date" alt="Star history" width="600">
+  </a>
+</p>

@@ -1,0 +1,17 @@
+{
+ "acme/ai-automation-builder_paris": {
+  "company": "Acme",
+  "title": "AI Automation Builder",
+  "family": "ai-automation",
+  "url": "https://www.welcometothejungle.com/fr/companies/acme/jobs/ai-automation-builder_paris",
+  "route": "Greenhouse",
+  "cv": "cv/cv-ai.pdf",
+  "status": "letter ready",
+  "answers": {
+   "Expected salary": "40-45k€ gross per year, within the range of the listing.",
+   "Earliest start date": "Immediately."
+  },
+  "letter": "Bonjour,\n\nFirst paragraph: their stake, taken from the listing's missions.\n\nOne proof per expectation of the listing.\n\nWhat I come to learn with you, and the drive to end on.\n\nMes projets sont visibles ici : https://example.com\n\nFirst Last",
+  "log": []
+ }
+}

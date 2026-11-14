@@ -1,9 +1,9 @@
-"""Convertit un CV (ou une lettre) HTML en PDF A4 avec Chrome ou Chromium en mode headless.
+"""Convert an HTML CV (or letter) to an A4 PDF with headless Chrome or Chromium.
 
-Un profil Chrome temporaire est utilisé : sans lui, le Chrome headless peut entrer en conflit avec
-la session Chrome ouverte (et couper l'extension Claude in Chrome).
+A throwaway Chrome profile is used: without it, headless Chrome can clash with the open Chrome
+session (and disconnect the Claude in Chrome extension).
 
-Usage : python scripts/cv_pdf.py cv/cv-ia.html [--out cv/cv-ia.pdf]
+Usage: python scripts/cv_pdf.py cv/cv-ai.html [--out cv/cv-ai.pdf]
 """
 from __future__ import annotations
 
@@ -35,13 +35,13 @@ def find_chrome() -> str | None:
 def to_pdf(source: Path, out: Path) -> None:
     chrome = find_chrome()
     if not chrome:
-        fail("Chrome ou Chromium introuvable. Installe Google Chrome, ou imprime le HTML en PDF à la main.")
+        fail("Chrome or Chromium not found. Install Google Chrome, or print the HTML to PDF by hand.")
     with tempfile.TemporaryDirectory() as profile:
         cmd = [chrome, "--headless=new", "--disable-gpu", f"--user-data-dir={profile}",
                "--no-pdf-header-footer", f"--print-to-pdf={out.resolve()}", source.resolve().as_uri()]
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
     if result.returncode != 0 or not out.exists():
-        fail(f"Échec de la conversion : {result.stderr.strip()[:400]}")
+        fail(f"Conversion failed: {result.stderr.strip()[:400]}")
 
 
 def main() -> None:
@@ -50,7 +50,7 @@ def main() -> None:
     parser.add_argument("--out", type=Path)
     args = parser.parse_args()
     if not args.html.exists():
-        fail(f"Fichier introuvable : {args.html}")
+        fail(f"File not found: {args.html}")
     out = args.out or args.html.with_suffix(".pdf")
     to_pdf(args.html, out)
     print(f"[OK] {out}")

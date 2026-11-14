@@ -1,10 +1,10 @@
 .env
-profil.md
-criteres.toml
-candidatures/
+profile.md
+rules.toml
+criteria.toml
+applications/
 cv/
 __pycache__/
 .pytest_cache/
 .venv/
 .DS_Store
-regles.toml

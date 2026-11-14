@@ -1,75 +1,87 @@
-# Onboarding : le premier lancement
+# Onboarding: the first run
 
-Objectif : adapter le skill à LA personne sans casser le pipeline. À la fin, son dossier de travail
-contient `profil.md`, `regles.toml`, `criteres.toml`, au moins un CV en PDF et une **lettre modèle validée**.
-Durée visée : 15 à 25 minutes.
+Goal: fit the skill to THIS person without bending the pipeline. At the end, the working folder holds
+`profile.md` (with a complete Application kit), `rules.toml`, `criteria.toml`, at least one CV as a PDF,
+and an **approved model letter**. Target: 15 to 25 minutes. Speak the user's language throughout.
 
-## Comment poser les questions
-- Par blocs de 2 à 4 questions avec l'outil AskUserQuestion quand il est disponible, avec des choix
-  proposés et l'option recommandée en premier. Sinon, en texte, un bloc à la fois.
-- Ne demande jamais ce que tu peux lire toi-même (CV, LinkedIn, portfolio, GitHub, offres).
-- Reformule ce que tu as compris à la fin de chaque bloc, en une ligne.
-- La personne peut sauter une question : la valeur par défaut de `regles.example.toml` s'applique.
+## How to ask
+- In blocks of 2 to 4 questions with AskUserQuestion when available: proposed choices, recommended one first.
+  Otherwise in plain text, one block at a time.
+- Never ask what you can read yourself (CV, LinkedIn, portfolio, GitHub, listings).
+- After each block, restate what you understood in one line.
+- Skipped question → the default from `rules.example.toml` applies; say so.
 
-## Bloc A — Situation
-1. Quel(s) poste(s) vises-tu ? Propose 3 à 5 intitulés proches, déduits de ce qu'elle dit.
-2. Où ? Ville, rayon, télétravail accepté ou exigé.
-3. Contrat : CDI, CDD, freelance, alternance ? (pour l'alternance et le stage, adapte `filtre_algolia`)
-4. Expérience réelle dans ce métier, en années, et niveau d'anglais honnête.
+## Block A — Situation
+1. Target job(s)? Propose 3 to 5 close titles inferred from what they say.
+2. Where? City, radius, remote accepted or required.
+3. Contract: permanent, fixed-term, freelance, internship, apprenticeship? (adjust `algolia_filter`)
+4. Real experience in this job, in years, and honest English level.
+5. Pace: how many applications per week? (→ `batch_size`) How urgent?
 
-Ensuite, demande l'urgence et le volume : combien de candidatures par semaine ? (→ `taille_lot`)
+## Block B — Material
+- **Existing CV**: ask for the file path, read it, extract the facts into `profile.md`. Point out in three
+  bullets what hurts it (no numbers, no links, vague title, unexplained gaps) and offer to redo it.
+  Redo it only with their OK.
+- **No CV**: offer to build one (see "Building the CV" below).
+- Links: LinkedIn, portfolio, GitHub, App Store, website. Read them if accessible.
+- Several target jobs: offer one CV per family (same base, different title and proof order).
 
-## Bloc B — Matériel
-- **CV existant** : demande le chemin du fichier, lis-le et extrais les faits dans `profil.md`. Signale
-  en trois points ce qui le dessert (pas de chiffres, pas de liens, titre flou, trous non expliqués) et
-  propose de le refaire. Ne le refais qu'avec son accord.
-- **Pas de CV** : propose d'en construire un (section « Construire le CV » ci-dessous).
-- Liens : LinkedIn, portfolio, GitHub, App Store, site. Lis-les si tu y as accès.
-- Plusieurs métiers visés : propose un CV par famille (ex. « IA » et « growth »), même base, titre et
-  ordre des preuves différents.
+## Block C — Proofs
+For each experience or project, get at least ONE proof: a fact and a result.
+- "What did you build, launch or improve there? With what result?"
+- "A number, even small, that shows it?" (if there is none, none is invented)
+- "What must I never write or exaggerate?" → `Truths never to bend`
+- "Any project you never want cited?" → `never_mention`
 
-## Bloc C — Les preuves
-Pour chaque expérience ou projet, obtiens au moins UNE preuve : un fait et un résultat. Questions utiles :
-- « Qu'est-ce que tu as construit, lancé ou amélioré là-bas ? Avec quel résultat ? »
-- « Un chiffre, même petit, qui le montre ? » (s'il n'y en a pas, on n'en invente pas)
-- « Qu'est-ce qu'il ne faut surtout pas que j'écrive ou que j'exagère ? » → `Vérités à ne jamais tordre`
-- « Y a-t-il un projet que tu ne veux jamais voir cité ? » → `mentions_interdites`
+## Block D — Application kit (what makes third-party sites autonomous)
+Every ATS asks the same dozen things. Collect them once so Claude never has to stop mid-form.
+Go through the `Application kit` section of `profile.md` and fill it, grouping questions:
+1. Contact and identity: legal name, email for applications, phone, address or city only.
+2. Work: right to work / visa, notice period, earliest start, relocation, travel, driving licence.
+3. Money: expected salary (short and long answer), current salary (or "prefer not to say").
+4. Forms: degree and year, years of experience as forms ask it, "how did you hear about us",
+   diversity questions policy, references.
+5. Accounts: existing accounts on job sites, whether Claude may create new ones (`forms.accounts`),
+   and the rule that the **user always types passwords**.
+6. Standard short answers in French and English: "Why you?", "Biggest achievement", "A weakness".
+   "Why us?" is always written per company.
 
-## Bloc D — Les règles
-Montre les règles par défaut de `regles.example.toml` sous forme de tableau court (règle, défaut, ce que
-ça change), puis demande ce qu'elle veut changer. Questions qui font vraiment varier les gens :
-- Combien d'années d'expérience demandées tu acceptes de viser ? (`experience_max_ans`)
-- Une lettre pour chaque offre, ou CV seul ? (`lettre.actif`)
-- Tutoiement ou vouvoiement ? (`tutoiement`)
-- Qui clique sur « Envoyer » : moi après ton GO, toi après mon remplissage, ou tu préfères juste les textes ? (`envoi.mode`)
-- Prétentions salariales à donner ? (`formulaire.pretentions`)
+## Block E — Rules
+Show the defaults from `rules.example.toml` as a short table (rule, default, what it changes), then ask
+what to change. The questions that really vary between people:
+- How many years of required experience are you willing to target? (`max_years_required`)
+- A letter for every listing, or CV only? (`letter.enabled`)
+- Formal or informal tone? (`informal`)
+- Who clicks Submit: me after your GO, you after I fill, or texts only? (`sending.mode`)
+- Which channels besides WTTJ? (`channels`)
+- Desktop notification after each application? (`notify.desktop`)
 
-Écris `regles.toml` à partir du template, avec ses choix.
+Write `rules.toml` from the template with their choices.
 
-## Bloc E — La lettre modèle (le moment clé)
-1. Lance un premier petit balayage (`search.py --days 7`) et choisis UNE offre très adaptée au profil.
-2. Rédige la lettre selon `references/lettres.md` et `regles.toml`, ouvre-la en HTML.
-3. Demande un retour précis : ton, longueur, ce qui sonne faux, ce qui manque.
-4. Corrige jusqu'à validation, puis enregistre-la dans `profil.md`, section `## Lettre modèle validée`,
-   avec la liste des retours transformés en règles (`formules_interdites`, `paragraphe_ecart`…).
-5. Toutes les lettres suivantes partent de cette base : même ton, même structure, contenu propre à chaque offre.
+## Block F — Model letter (the key moment)
+1. Run a small sweep (`search.py --days 7`) and pick ONE listing that fits the profile very well.
+2. Write the letter per `references/letters.md` and `rules.toml`, show it through `review.py`.
+3. Ask for precise feedback: tone, length, what sounds fake, what is missing.
+4. Iterate until approved, then paste it into `profile.md › Approved model letter`, with the feedback
+   turned into rules (`banned_phrases`, `gap_sentence`…).
+5. Every later letter starts from this base: same tone, same structure, content specific to each listing.
 
-## Bloc F — Les critères de recherche
-Génère `criteres.toml` : une famille par métier, 15 à 60 mots-clés (intitulés FR et EN, outils, jargon,
-synonymes), filtres de titre inclure / exclure tirés du bloc A. Fais un balayage de contrôle et montre
-le volume par famille ; ajuste si une famille est vide ou noyée.
+## Block G — Search criteria
+Write `criteria.toml`: one family per target job, 15 to 60 keywords (French and English titles, tools,
+jargon, synonyms), title include/exclude filters from block A. Run a control sweep and show the volume
+per family; adjust when a family is empty or flooded.
 
-## Fin d'onboarding
-- Ajoute en tête de `profil.md` : `Onboarding : terminé le AAAA-MM-JJ`. Au prochain lancement, le skill
-  saute directement à l'étape 1.
-- Résume en 5 lignes : métiers, zone, règles changées par rapport au défaut, CV disponibles, prochaine action.
-- À tout moment, « change mes règles » ou « refais mon onboarding » relance le bloc concerné.
+## End of onboarding
+- Replace `Onboarding: not done` with `Onboarding: done YYYY-MM-DD` at the top of `profile.md`. Next time,
+  the skill goes straight to the sweep.
+- Five-line summary: jobs, area, rules changed from the defaults, CVs available, next action.
+- "Change my rules" or "redo my onboarding" reopens the relevant block at any time.
 
-## Construire le CV
-Pars de `templates/cv.html` (une page A4, sobre, lisible par les ATS) :
-1. Collecte : titre visé, 3 à 5 expériences ou projets avec une preuve chacun, compétences et outils réels,
-   formation, langues, liens. Photo seulement si la personne en veut une.
-2. Écris `cv/cv-<famille>.html` en remplaçant les blocs du template. Titre = le métier visé, pas « en recherche d'emploi ».
-3. Génère le PDF : `python $SK/scripts/cv_pdf.py cv/cv-<famille>.html`. Vérifie qu'il tient sur une page.
-4. Montre le PDF (`open`), corrige selon les retours, puis reporte les faits dans `profil.md`.
-Règles : zéro invention, des verbes d'action, un chiffre par ligne quand il existe, pas de jauges de compétences.
+## Building the CV
+Start from `templates/cv.html` (one A4 page, plain, ATS-readable):
+1. Collect: target title, 3 to 5 experiences or projects with one proof each, real skills and tools,
+   education, languages, links. Photo only if wanted (common in France, discouraged elsewhere).
+2. Write `cv/cv-<family>.html` by replacing the template blocks. Title = the target job, not "looking for a job".
+3. `python $SK/scripts/cv_pdf.py cv/cv-<family>.html`, check it fits one page, `open` it.
+4. Iterate on feedback, then copy the facts into `profile.md`.
+Rules: zero invention, action verbs, one number per line when one exists, no skill gauges.
