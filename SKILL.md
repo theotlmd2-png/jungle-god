@@ -7,7 +7,7 @@ description: Job-hunting pipeline for Welcome to the Jungle (WTTJ) and the caree
 
 The idea: **a lot of applications, each one right.** The machine does the volume (sweep, triage,
 writing, filling forms). The human keeps the decisions that matter: the truth of their profile,
-their rules, the GO on the shortlist.
+their rules, one GO on a ready-to-send batch.
 
 Always talk to the user in their language. Letters and form answers follow the listing's language.
 
@@ -26,9 +26,9 @@ Never assume anything about the user's situation (seniority, contract, country, 
           │    → rules → approved model letter → criteria    │
           └────────────────────────┬─────────────────────────┘
                                    ▼
- 1. Sweep ──▶ 2. Triage ──▶ 3. Shortlist ──▶ GO ──▶ 4. Letters ──▶ 5. Apply ──▶ 6. Recap
-  sweep.py    details.py     table          human   applications    Chrome +     review.py
-                                                    .json           notify.py    blacklist.py
+ 1. Sweep ──▶ 2. Triage ──▶ 3. Letters ──▶ 4. Ready check ──▶ GO ──▶ 5. Apply ──▶ 6. Recap
+  sweep.py    details.py     applications   one message        human   Chrome +     review.py
+                             .json          CV ✓ letters ✓...          notify.py    blacklist.py
      ▲                                                                                │
      └───────────────────── companies already contacted are excluded ◀────────────────┘
 ```
@@ -80,16 +80,19 @@ python $SK/scripts/details.py --keys applications/batch-YYYY-MM-DD/hits.json --c
 Read each listing IN FULL. A listing passes because its missions match the proofs in `profile.md`,
 not because it contains a keyword.
 
-## Step 3 — Shortlist and GO
-The table from `references/triage.md`, skipped listings included with their reason. Then wait for the GO.
-**Nothing is written or sent before the GO.**
+## Step 3 — Letters (straight away, no stop)
+Right after triage, without asking: `references/letters.md` + `rules.toml [letter]`, **starting from the
+approved model letter**. One letter per kept listing, answers ready for every form question (from the
+listing and the Application kit), CV picked by family. Everything goes to `applications.json`. Writing is
+local and harmless; the GO guards what leaves the machine.
 
-## Step 4 — Letters
-`references/letters.md` + `rules.toml [letter]`, **starting from the approved model letter**. Answers ready
-for every form question, from the listing and the Application kit. CV picked by family. Everything goes to
-`applications.json`, and **every letter is shown in full in the chat** (company and role as a heading, the
-risk in one line, then the letter in a quote block) for the user to review there. No HTML page for review:
-`review.py` is only for the end-of-batch scoreboard. If `letter.enabled = false`, show the form answers only.
+## Step 4 — Ready check, then ONE GO
+One short message, the only stop of the batch, in the user's language. Format in `references/triage.md`
+› Ready check. A checklist first (CV ✓, letters ✓ N/N, form answers ✓, blacklist ✓, anything missing ✗),
+then the shortlist table (one line per listing, letter included), then skipped listings in one line each,
+then a single question: GO for the whole batch, or GO except some numbers. Letters are NOT pasted in full;
+the user can ask "show me letter 3" and gets it in a quote block, corrected in the chat if needed.
+After the GO, run Step 5 to the end without asking again (stop only per core rule 7).
 
 ## Step 5 — Apply
 1. **Open every GO listing at once** in Chrome, one tab each, in shortlist order, and tell the user
@@ -107,7 +110,7 @@ If `follow_up.gmail`, read replies. Several rejections within 48 h mean a CV scr
 
 ## The core (non-negotiable, whatever the rules)
 1. **Zero invention.** No fact, number, customer, date or tool that is not in `profile.md`. When in doubt, ask.
-2. **Pipeline in order**: no letter without triage, no submission without GO.
+2. **Pipeline in order**: no letter without triage, nothing sent without the GO on the ready check.
 3. **Blacklist** kept up to date: never the same application twice to the same company.
 4. **Stable formats**: `hits.json`, `keys.txt`, `details.json`, `applications.json` (see `templates/`),
    so any later session can resume a batch.

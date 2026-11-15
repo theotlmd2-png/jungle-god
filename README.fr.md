@@ -52,8 +52,10 @@ Prérequis : [Claude Code](https://claude.com/claude-code), Python 3.11+, Google
 1. **Balayage** : les pages métier publiques de WTTJ qui te correspondent (sans compte ni clé), filtrées
    par date, contrat, ville et titre, sans les entreprises déjà contactées.
 2. **Tri** : lecture complète des fiches et critères durs. Mieux vaut 5 offres justes que 16 approximatives.
-3. **Shortlist** : un tableau avec le pourquoi et le risque de chaque offre. **Rien ne part sans ton GO.**
-4. **Lettres** : une par offre, zéro invention, et toutes les questions du formulaire préparées.
+3. **Lettres** : écrites dans la foulée, une par offre, zéro invention, toutes les questions du formulaire préparées.
+4. **Récap prêt-à-partir** : un seul message (CV ✓, lettres ✓, formulaires ✓, liste noire ✓) et le tableau
+   des offres avec le pourquoi et le risque. Tu peux lire n'importe quelle lettre. **Rien ne part sans ton GO**,
+   et après il va jusqu'au bout.
 5. **Envoi** : WTTJ, ATS, sites carrière, autres jobboards. Après chaque candidature, une notification et une
    ligne qui te dit exactement ce qui a été fait, et où.
 6. **Bilan** : envoyées, par site, ce qu'il te reste à finir, total cumulé. La liste noire est mise à jour.
@@ -72,7 +74,8 @@ la même boîte, tes données restent sur ta machine.
 ```text
 /jungle-god go
 Nouveau lot : les offres des 7 derniers jours, max 10.
-GO pour 1, 3, 4, 7 et 9.
+Montre-moi la lettre 3.
+GO sauf la 4.
 Envoie.
 Change mes règles : plus d'offres en agence.
 ```

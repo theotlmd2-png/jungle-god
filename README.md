@@ -67,7 +67,7 @@ that fit you (because they are named differently), and rewriting the same cover 
           │    → rules → approved model letter → criteria    │
           └────────────────────────┬─────────────────────────┘
                                    ▼
- 1. Sweep ──▶ 2. Triage ──▶ 3. Shortlist ──▶ GO ──▶ 4. Letters ──▶ 5. Apply ──▶ 6. Recap
+ 1. Sweep ──▶ 2. Triage ──▶ 3. Letters ──▶ 4. Ready check ──▶ GO ──▶ 5. Apply ──▶ 6. Recap
  keywords     full read      table           you     one each        any site     scoreboard
      ▲                                                                                │
      └───────────────────── companies already contacted are excluded ◀────────────────┘
@@ -97,16 +97,17 @@ your hard criteria. Five right listings beat sixteen approximate ones.
 </details>
 
 <details>
-<summary><b>3 · Shortlist</b>: you decide</summary>
+<summary><b>3 · Letters</b>: one per listing, zero invention</summary>
 
-One table: company, role, salary, application route, why it fits, what the risk is. **Nothing leaves without your GO.**
+Written straight after triage: one proof per expectation of the listing, the gap owned in one sentence,
+every form question answered.
 </details>
 
 <details>
-<summary><b>4 · Letters</b>: one per listing, zero invention</summary>
+<summary><b>4 · Ready check</b>: one message, one GO</summary>
 
-One proof per expectation of the listing, the gap owned in one sentence, every form question answered.
-Reviewed in an HTML page with Copy buttons.
+CV ✓, letters ✓, forms ✓, blacklist ✓, plus one table (company, role, salary, route, why it fits, risk).
+Ask to read any letter. **Nothing leaves without your GO**, and after it, Claude goes all the way.
 </details>
 
 <details>
@@ -141,7 +142,8 @@ without GO, never the same application twice to one company, your data stays on 
 ```text
 /jungle-god go
 New batch: listings from the last 7 days, max 10.
-GO for 1, 3, 4, 7 and 9.
+Show me letter 3.
+GO except 4.
 Apply.
 Change my rules: no more agency roles.
 ```

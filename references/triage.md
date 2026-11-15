@@ -48,4 +48,22 @@ One table, one row per listing, best fit first, in the user's language:
 - "Route": WTTJ form, or the external ATS (Teamtailor, Greenhouse, Lever, Workday…), or another board.
 - Then list the skipped listings, one line each with the reason, so the user can rescue one.
 
-Then ask for the GO: per listing, or for the whole batch. Respect `batch_size` and `quota`.
+Respect `batch_size` and `quota`. Do not stop here: write the letters (Step 3), then send the ready check.
+
+## Ready check (the only stop of a batch)
+Short, scannable, in the user's language. Example:
+
+```
+Batch ready · 9 listings · 412 swept → 38 read → 9 kept
+✓ CV        customer-success.pdf (6) · ops.pdf (3)
+✓ Letters   9/9, from your model letter
+✓ Forms     47 questions answered · 2 ATS (Greenhouse, Lever)
+✓ Blacklist 0 company already contacted
+✗ To check  Acme asks for a portfolio link (none in your profile)
+
+| # | Company | Role | Exp. | Salary | Route | Why it fits | Risk |
+...
+Skipped: Foo (5 yrs min) · Bar (German C1) · …
+
+GO for the 9? (or "GO except 4", or "show me letter 3")
+```
