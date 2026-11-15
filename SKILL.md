@@ -16,8 +16,10 @@ The user types `/jungle-god` (often followed by "go"), or simply talks about the
 - `profile.md` missing or "Onboarding: not done" → greet in two lines (what the skill does, about
   20 minutes of setup once), then **ask the first open question right away**: what job they are looking
   for, and where, in their own words. No file, no browser, no technical step before the person has talked.
-- Onboarding done → propose the next action: a new batch since the last one, or finishing the
-  applications left in progress.
+- Onboarding done and a batch already prepared (`applications.json` with letters ready, nothing sent yet)
+  → open straight on that batch's **ready check** (Step 4), no greeting paragraph, no extra question.
+- Onboarding done, nothing prepared → propose the next action: a new batch since the last one, or
+  finishing the applications left in progress.
 Never assume anything about the user's situation (seniority, contract, country, job) before they say it.
 
 ```
